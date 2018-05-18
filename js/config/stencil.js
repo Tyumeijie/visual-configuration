@@ -8,16 +8,19 @@ App.config = App.config || {};
     App.config.stencil = {};
 
     App.config.stencil.groups = {
-        basic: { index: 1, label: 'Basic shapes' },
-        fsa: { index: 2, label: 'State machine' },
-        pn: { index: 3, label: 'Petri nets' },
-        erd: { index: 4, label: 'Entity-relationship' },
-        uml: { index: 5, label: 'UML' },
-        org: { index: 6, label: 'ORG' }
+        /*
+       basic: { index: 1, label: 'Basic shapes' }
+       fsa: { index: 2, label: 'State machine' },
+       pn: { index: 3, label: 'Petri nets' },
+       erd: { index: 4, label: 'Entity-relationship' },
+       */
+       uml: { index: 5, label: 'UML' },
+       /*org: { index: 6, label: 'ORG' }*/
+
     };
 
     App.config.stencil.shapes = {};
-
+    /*
     App.config.stencil.shapes.basic = [
         {
             type: 'basic.Rect',
@@ -139,7 +142,7 @@ App.config = App.config || {};
                 }
             }
         },
-        {
+       {
             type: 'basic.Image',
             size: { width: 53, height: 42 },
             attrs: {
@@ -556,7 +559,7 @@ App.config = App.config || {};
             }
         }
     ];
-
+*/
     App.config.stencil.shapes.uml = [
 
         {
@@ -694,7 +697,7 @@ App.config = App.config || {};
         {
             type: 'uml.Abstract',
             name: 'Abstract',
-            attributes: ['+attr1'],
+            attributes: ['+attr1', '+attr2'],
             methods: ['-setAttr1()'],
             size: {
                 width: 150,
@@ -799,7 +802,7 @@ App.config = App.config || {};
             }
         }
     ];
-
+/*
     App.config.stencil.shapes.org = [
 
         {
@@ -844,6 +847,6 @@ App.config = App.config || {};
                 }
             }
         }
-    ];
+    ];*/
 
 })();

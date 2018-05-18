@@ -1,7 +1,7 @@
 (function(joint) {
 
     'use strict';
-
+    /*
     joint.shapes.devs.Model.define('app.CircularModel', {
         ports: {
             groups: {
@@ -113,7 +113,7 @@
             }
         }
     });
-
+*/
     joint.dia.Link.define('app.Link', {
         router: {
             name: 'normal'
@@ -150,5 +150,4 @@
             }
         }
     });
-
 })(joint);

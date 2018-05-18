@@ -2479,6 +2479,7 @@ App.config = App.config || {};
         },
         'uml.Class': {
             inputs: {
+                // Define element and the group to which the element belongs
                 attrs: {
                     '.uml-class-name-rect': {
                         fill: {
@@ -2552,8 +2553,9 @@ App.config = App.config || {};
                     group: 'methods',
                     index: 1,
                     label: 'Methods'
-                }
+                },
             },
+            // Define groups
             groups: {
                 name: {
                     label: 'Class name',

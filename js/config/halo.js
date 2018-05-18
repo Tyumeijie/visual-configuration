@@ -11,7 +11,8 @@ App.config = App.config || {};
             {
                 name: 'remove',
                 position: 'nw',
-                events: { pointerdown: 'removeElement' },
+                // joint.ui.Halo.extend().prototype.__proto__.removeElement
+                events: { pointerdown: 'removeElement'},
                 attrs: {
                     '.handle': {
                         'data-tooltip-class-name': 'small',
@@ -73,6 +74,7 @@ App.config = App.config || {};
                     }
                 }
             },
+
             {
                 name: 'rotate',
                 position: 'sw',

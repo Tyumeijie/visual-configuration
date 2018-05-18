@@ -1,4 +1,5 @@
 var App = window.App || {};
+var Collection = window.Collection || {};
 
 (function(_, joint) {
 
@@ -41,6 +42,10 @@ var App = window.App || {};
             var graph = this.graph = new joint.dia.Graph;
 
             graph.on('add', function(cell, collection, opt) {
+                Collection.collection = collection;
+
+                // When the shape is dragged to the paper, the create inspector on the inspector container.
+                // Otherwise, inspector will be created when the shape is being clicked.
                 if (opt.stencil) this.createInspector(cell);
             }, this);
 
@@ -211,6 +216,7 @@ var App = window.App || {};
 
             return joint.ui.Inspector.create('.inspector-container', _.extend({
                 cell: cell
+                // Create corresponding inspector for cell according it's type
             }, App.config.inspector[cell.get('type')]));
         },
 
@@ -240,6 +246,7 @@ var App = window.App || {};
                         this.selection.collection.add(cell, { silent: true });
                     }
 
+                    // When the shape is being clicked, then create a inspector for it.
                     this.createInspector(cell);
                 }
             }, this);

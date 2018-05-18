@@ -114,7 +114,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 120px; /* navigator height */
+    bottom: 240px; /* navigator height */
     width: 240px;
     box-sizing: border-box;
 }
@@ -141,7 +141,7 @@ body {
     right: 0;
     bottom: 0;
     width: 240px;
-    height: 120px;
+    height: 240px;
 }
 
 /*  Stencil  */

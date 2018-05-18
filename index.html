@@ -18,7 +18,7 @@
     <div id="app">
         <div class="app-header">
               <div class="app-title">
-                  <h1>Rappid</h1>
+                  <h1>ObsFramework</h1>
               </div>
               <div class="toolbar-container"></div>
         </div>
@@ -62,8 +62,9 @@
         themePicker = new App.ThemePicker({ mainView: app });
         themePicker.render().$el.appendTo(document.body);
         window.addEventListener('load', function() {
-            app.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
+            //app.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
         });
+
     </script>
 
     <!-- Local file warning: -->
