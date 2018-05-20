@@ -72,8 +72,7 @@
             //app.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
 
             App.pattern = {};
-            App.pattern.tree = tree.bind(app, joint, V, _);
-
+            App.pattern.tree = {factory: tree.bind(app, joint, V, _), hasCalled: false};
 
         });
 

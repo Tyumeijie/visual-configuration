@@ -126,6 +126,13 @@ joint.dia.Link.define("custom.Arrow", {
 
 var tree = function(joint, V, _) {
 
+    if (App.pattern.tree.hasCalled) {
+        let cells = app.graph.getCells();
+        let newCells = cells.splice(0, cells.length-1);
+        app.graph.resetCells(newCells);
+        return;
+    }
+
     var graph = this.graph;
     var paper = this.paper;
     var paperScroller = this.paperScroller;
@@ -139,7 +146,7 @@ var tree = function(joint, V, _) {
         '</g>',
         '<text class="rank"/><text class="name"/>',
         '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
-        //'<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
+        '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
         '<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
         '</g>'
     ].join('');
@@ -151,7 +158,7 @@ var tree = function(joint, V, _) {
         '</g>',
         '<text class="rank"/><text class="name"/>',
         '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
-        //'<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
+        '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
         '<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
         '</g>'
     ].join('');
@@ -393,6 +400,7 @@ var tree = function(joint, V, _) {
         evt.stopPropagation();
         alert("edit")
 
+        // graph.resetCells(members.concat(connections));
 
         // A member edit
         /* var inspector = new joint.ui.Inspector({
@@ -463,7 +471,7 @@ var tree = function(joint, V, _) {
         });
         dialog.open();
         */
-    });
+    }, this);
 
     // Tree Layout Rank Selection
     var directionPicker = new joint.ui.SelectBox({
@@ -482,7 +490,7 @@ var tree = function(joint, V, _) {
         paperScroller.centerContent();
     });
 
-    directionPicker.render().$el.appendTo('#orgchart-direction');
+    directionPicker.render().$el.appendTo('#chart-direction');
 
      new joint.ui.TreeLayoutView({
         paper: this.paper,
@@ -500,5 +508,4 @@ var tree = function(joint, V, _) {
     for (let i=0; i<cells.length; i++) {
         App.guidToCell[cells[i].id] = cells[i];
     };
-
 }
