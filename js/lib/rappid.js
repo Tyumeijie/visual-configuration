@@ -13804,7 +13804,7 @@
                 paperOptions: null
             },
             init: function() {
-                this.setPaper(this.options.paperScroller || this.options.paper), this.graphs = {}, this.papers = {}, this.$groups = {}, b.bindAll(this, "onDrag", "onDragEnd", "onDropEnd"), $(document.body).on("mousemove.stencil touchmove.stencil", this.onDrag), $(window).on("mouseup.stencil touchend.stencil", this.onDragEnd), this.onSearch = b.debounce(this.onSearch, 200), this.delegateEvents(), this.initializeLayout()
+                this.setPaper(this.options.paperScroller || this.options.paper), this.graphs = {}, this.papers = {}, this.$groups = {},  b.bindAll(this, "onDrag", "onDragEnd", "onDropEnd"), $(document.body).on("mousemove.stencil touchmove.stencil", this.onDrag), $(window).on("mouseup.stencil touchend.stencil", this.onDragEnd), this.onSearch = b.debounce(this.onSearch, 200), this.delegateEvents(), this.initializeLayout()
             },
             initializeLayout: function() {
                 var a = this.options.layout;
@@ -14030,7 +14030,11 @@
                 }
             },
             onDropEnd: function(a) {
-                this._clone === a && (this.clearClone(), this.$el.append(this._paperDrag.$el), this.$el.removeClass("dragging"), this._paperDrag.$el.removeClass("dragging"))
+                this._clone === a && (this.clearClone(), this.$el.append(this._paperDrag.$el), this.$el.removeClass("dragging"), this._paperDrag.$el.removeClass("dragging"));
+
+                if (a.attributes.type == 'uml.Class') {
+                        App.pattern.tree()
+                }
             },
             clearClone: function() {
                 this._clone && (this._clone.remove(), this._clone = null, this._cloneView = null, this._cloneSnapOffset = null, this._paperDragInitialOffset = null, this._paperDragPadding = null)

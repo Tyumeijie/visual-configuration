@@ -6,12 +6,14 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="css/lib/rappid.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/orgchart.css">
     <link rel="stylesheet" type="text/css" href="css/theme-picker.css">
 
     <!-- theme-specific application CSS  -->
     <link rel="stylesheet" type="text/css" href="css/style.dark.css">
     <link rel="stylesheet" type="text/css" href="css/style.material.css">
     <link rel="stylesheet" type="text/css" href="css/style.modern.css">
+
 </head>
 <body>
 
@@ -27,6 +29,9 @@
               <div class="paper-container"></div>
               <div class="inspector-container"></div>
               <div class="navigator-container"></div>
+        </div>
+        <div class="app-footer">
+            <div id="chart-direction"></div>
         </div>
     </div>
 
@@ -54,6 +59,8 @@
     <script src="js/config/toolbar.js"></script>
     <script src="js/config/sample-graphs.js"></script>
     <script src="js/views/main.js"></script>
+    <script src="js/views/orgchart.js"></script>
+
     <script src="js/views/theme-picker.js"></script>
     <script src="js/models/joint.shapes.app.js"></script>
     <script>
@@ -63,6 +70,11 @@
         themePicker.render().$el.appendTo(document.body);
         window.addEventListener('load', function() {
             //app.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
+
+            App.pattern = {};
+            App.pattern.tree = tree.bind(app, joint, V, _);
+
+
         });
 
     </script>

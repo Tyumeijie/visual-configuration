@@ -71,13 +71,13 @@ var Collection = window.Collection || {};
                 cursor: 'grab'
             });
 
+
             this.$('.paper-container').append(paperScroller.el);
             paperScroller.render().center();
         },
 
         // Create and populate stencil.
         initializeStencil: function() {
-
             var stencil = this.stencil = new joint.ui.Stencil({
                 paper: this.paperScroller,
                 snaplines: this.snaplines,
@@ -92,7 +92,7 @@ var Collection = window.Collection || {};
                 },
                 // Use default Grid Layout
                 layout: true,
-                // Remove tooltip definition from clone
+                // Remove tooltip definition from clone(redefine the dragStartClone function)
                 dragStartClone: function(cell) {
                     return cell.clone().removeAttr('./data-tooltip');
                 }
@@ -194,7 +194,6 @@ var Collection = window.Collection || {};
             }, this);
 
             this.paper.on('element:pointerdown', function(elementView, evt) {
-
                 // Select an element if CTRL/Meta key is pressed while the element is clicked.
                 if (this.keyboard.isActive('ctrl meta', evt)) {
                     this.selection.collection.add(elementView.model);

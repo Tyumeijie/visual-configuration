@@ -2858,7 +2858,7 @@ App.config = App.config || {};
                 }
             }
         },
-        'org.Member': {
+        'custom.Member': {
             inputs: {
                 attrs: {
                     '.rank': {
@@ -2878,30 +2878,6 @@ App.config = App.config || {};
                             when: { ne: { 'attrs/.rank/text': '' }},
                             index: 2
                         },
-                        'font-family': {
-                            type: 'select-box',
-                            options: options.fontFamily,
-                            label: 'Font family',
-                            group: 'rank',
-                            when: { ne: { 'attrs/.rank/text': '' }},
-                            index: 3
-                        },
-                        'font-weight': {
-                            type: 'select-box',
-                            options: options.fontWeight,
-                            label: 'Font thickness',
-                            group: 'rank',
-                            when: { ne: { 'attrs/.rank/text': '' }},
-                            index: 4
-                        },
-                        fill: {
-                            type: 'color-palette',
-                            options: options.colorPalette,
-                            label: 'Fill',
-                            group: 'rank',
-                            when: { ne: { 'attrs/.rank/text': '' }},
-                            index: 5
-                        }
                     },
                     '.name': {
                         text: {
@@ -2920,81 +2896,7 @@ App.config = App.config || {};
                             when: { ne: { 'attrs/.name/text': '' }},
                             index: 2
                         },
-                        'font-family': {
-                            type: 'select-box',
-                            options: options.fontFamily,
-                            label: 'Font family',
-                            group: 'name',
-                            when: { ne: { 'attrs/.name/text': '' }},
-                            index: 3
-                        },
-                        'font-weight': {
-                            type: 'select-box',
-                            options: options.fontWeight,
-                            label: 'Font thickness',
-                            group: 'name',
-                            when: { ne: { 'attrs/.name/text': '' }},
-                            index: 4
-                        },
-                        fill: {
-                            type: 'color-palette',
-                            options: options.colorPalette,
-                            label: 'Fill',
-                            group: 'name',
-                            when: { ne: { 'attrs/.name/text': '' }},
-                            index: 5
-                        }
                     },
-                    '.card': {
-                        fill: {
-                            type: 'color-palette',
-                            options: options.colorPalette,
-                            label: 'Fill',
-                            group: 'presentation',
-                            index: 1
-                        },
-                        stroke: {
-                            type: 'color-palette',
-                            options: options.colorPalette,
-                            label: 'Outline',
-                            group: 'presentation',
-                            index: 2
-                        },
-                        'stroke-width': {
-                            type: 'range',
-                            min: 0,
-                            max: 30,
-                            step: 1,
-                            defaultValue: 1,
-                            unit: 'px',
-                            label: 'Outline thickness',
-                            group: 'presentation',
-                            when: { ne: { 'attrs/.card/stroke': 'transparent' }},
-                            index: 3
-                        },
-                        'stroke-dasharray': {
-                            type: 'select-box',
-                            options: options.strokeStyle,
-                            label: 'Outline style',
-                            group: 'presentation',
-                            when: {
-                                and: [
-                                    { ne: { 'attrs/.card/stroke': 'transparent' }},
-                                    { ne: { 'attrs/.card/stroke-width': 0 }}
-                                ]
-                            },
-                            index: 4
-                        }
-                    },
-                    image: {
-                        'xlink:href': {
-                            type: 'select-button-group',
-                            options: options.imageGender,
-                            label: 'Gender',
-                            group: 'gender',
-                            index: 1
-                        }
-                    }
                 }
             },
             groups: {
@@ -3010,10 +2912,62 @@ App.config = App.config || {};
                     label: 'Name',
                     index: 3
                 },
-                gender: {
-                    label: 'Gender',
-                    index: 1
+            }
+        },
+        'custom.Member_2': {
+            inputs: {
+                attrs: {
+                    '.rank': {
+                        text: {
+                            type: 'content-editable',
+                            label: 'Text',
+                            group: 'rank',
+                            index: 1
+                        },
+                        'font-size': {
+                            type: 'range',
+                            min: 5,
+                            max: 80,
+                            unit: 'px',
+                            label: 'Font size',
+                            group: 'rank',
+                            when: { ne: { 'attrs/.rank/text': '' }},
+                            index: 2
+                        },
+                    },
+                    '.name': {
+                        text: {
+                            type: 'content-editable',
+                            label: 'Text',
+                            group: 'name',
+                            index: 1
+                        },
+                        'font-size': {
+                            type: 'range',
+                            min: 5,
+                            max: 80,
+                            unit: 'px',
+                            label: 'Font size',
+                            group: 'name',
+                            when: { ne: { 'attrs/.name/text': '' }},
+                            index: 2
+                        },
+                    },
                 }
+            },
+            groups: {
+                presentation: {
+                    label: 'Presentation',
+                    index: 4
+                },
+                rank: {
+                    label: 'Rank',
+                    index: 2
+                },
+                name: {
+                    label: 'Name',
+                    index: 3
+                },
             }
         }
     };
