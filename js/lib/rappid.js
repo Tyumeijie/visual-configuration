@@ -13803,6 +13803,7 @@
                 layoutGroup: null,
                 paperOptions: null
             },
+            isDropValid: true,
             init: function() {
                 this.setPaper(this.options.paperScroller || this.options.paper), this.graphs = {}, this.papers = {}, this.$groups = {},  b.bindAll(this, "onDrag", "onDragEnd", "onDropEnd"), $(document.body).on("mousemove.stencil touchmove.stencil", this.onDrag), $(window).on("mouseup.stencil touchend.stencil", this.onDragEnd), this.onSearch = b.debounce(this.onSearch, 200), this.delegateEvents(), this.initializeLayout()
             },
@@ -14032,15 +14033,18 @@
             onDropEnd: function(a) {
                 this._clone === a && (this.clearClone(), this.$el.append(this._paperDrag.$el), this.$el.removeClass("dragging"), this._paperDrag.$el.removeClass("dragging"));
 
-                if (a.attributes.type == 'uml.Class') {
+                if (a.attributes.type == 'uml.Class' && this.isDropValid) {
                         App.pattern.tree.factory();
                         App.pattern.tree.hasCalled = true;
                 }
+                // We should reset it to `true` here, if it is drop in invalid area, then it will be set to `false`
+                this.isDropValid = true;
             },
             clearClone: function() {
                 this._clone && (this._clone.remove(), this._clone = null, this._cloneView = null, this._cloneSnapOffset = null, this._paperDragInitialOffset = null, this._paperDragPadding = null)
             },
             onDropInvalid: function(a, c) {
+                this.isDropValid = false;
                 var d = this._clone;
                 if (d) {
                     a = b.normalizeEvent(a), c = c || this.options.dragEndClone(d), this.trigger("drop:invalid", a, c);
