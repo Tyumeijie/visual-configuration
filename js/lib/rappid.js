@@ -17463,7 +17463,9 @@
                 return a.clone()
             },
             canInteract: function() {
-                return !0
+                // We set it default to non-interactive, if we need it be interactive we can redefine
+                // canIteract' when instantiate a TreeLayoutView
+                return !1
             }
         },
         init: function() {
