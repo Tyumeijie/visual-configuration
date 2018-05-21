@@ -46,7 +46,7 @@ var Collection = window.Collection || {};
 
                 // When the shape is dragged to the paper, the create inspector on the inspector container.
                 // Otherwise, inspector will be created when the shape is being clicked.
-                if (opt.stencil) this.createInspector(cell);
+                // if (opt.stencil) this.createInspector(cell);
             }, this);
 
             this.commandManager = new joint.dia.CommandManager({ graph: graph });
@@ -100,6 +100,9 @@ var Collection = window.Collection || {};
 
             this.$('.stencil-container').append(stencil.el);
             stencil.render().load(App.config.stencil.shapes);
+
+            // Disable dragging of elements from the stencil stencil.stopListening()
+            // Enable dragging of elements from the stencil startListening()
         },
 
         initializeKeyboardShortcuts: function() {
@@ -215,7 +218,7 @@ var Collection = window.Collection || {};
 
             return joint.ui.Inspector.create('.inspector-container', _.extend({
                 cell: cell
-                // Create corresponding inspector for cell according it's type
+                // Create corresponding inspector for cell according to it's type
             }, App.config.inspector[cell.get('type')]));
         },
 
@@ -224,11 +227,12 @@ var Collection = window.Collection || {};
             this.paper.on('element:pointerup link:options', function(cellView) {
 
                 var cell = cellView.model;
+                console.log(cellView);
 
                 if (!this.selection.collection.contains(cell)) {
 
                     if (cell.isElement()) {
-
+                        // Render outside border which  the halos surroud.
                         new joint.ui.FreeTransform({
                             cellView: cellView,
                             allowRotation: false,
@@ -236,6 +240,7 @@ var Collection = window.Collection || {};
                             allowOrthogonalResize: cell.get('allowOrthogonalResize') !== false
                         }).render();
 
+                        // Every time when a element is being selected, then render halos.
                         new joint.ui.Halo({
                             cellView: cellView,
                             handles: App.config.halo.handles

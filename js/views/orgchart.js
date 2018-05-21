@@ -1,14 +1,3 @@
-/*! Rappid v2.2.0 - HTML5 Diagramming Framework - TRIAL VERSION
-
-Copyright (c) 2015 client IO
-
- 2018-05-06
-
-
-This Source Code Form is subject to the terms of the Rappid Trial License
-, v. 2.0. If a copy of the Rappid License was not distributed with this
-file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
- or from the Rappid archive as was distributed by client IO. See the LICENSE file.*/
 
 var App = window.App || {};
 
@@ -138,6 +127,7 @@ var tree = function(joint, V, _) {
     var paperScroller = this.paperScroller;
 
     joint.setTheme('modern');
+
     // Extend the Orgchart member markup with control buttons.
     joint.shapes.custom.Member.prototype.markup = [
         '<g class="rotatable">',
@@ -259,34 +249,16 @@ var tree = function(joint, V, _) {
         link(members[1], members[4]),
         link(members[1], members[5])
     ];
-/*
-    var graph = new joint.dia.Graph();
-    var paper = new joint.dia.Paper({
-        model: graph,
-        width: 1,
-        height: 1,
-        gridSize: 1,
-        defaultLink: new joint.shapes.custom.Arrow()
-    });
 
-    var paperScroller = new joint.ui.PaperScroller({
-        paper: paper,
-        autoResizePaper: true
-    });
-*/
     var treeLayout = new joint.layout.TreeLayout({
         graph: graph,
         direction: 'R'
     });
 
-
-    // paperScroller.$el.css({ width: '100%', height: '100%' }).appendTo('#paper-container');
     graph.resetCells(members.concat(connections));
     treeLayout.layout();
-    // this.paperScroller.zoom(-0.2);
+    this.paperScroller.zoom(-0.2);
     this.paperScroller.centerContent();
-
-    // this.paper.on('blank:pointerdown', paperScroller.startPanning);
 
     memeberFactory = {
         woman: function(){
@@ -308,9 +280,10 @@ var tree = function(joint, V, _) {
         treeLayout.layout();
     }
 
-    this.paper.on('element:add', function(elementView, evt) {
+    paper.on('element:add', function(elementView, evt) {
         evt.stopPropagation();
 
+        // TODO check the need to pop up a dialog
 
         var el = '<select id="selection">' +
             '<option >man</option>' +
@@ -318,7 +291,6 @@ var tree = function(joint, V, _) {
             '</select>';
 
         var dialog = new joint.ui.Dialog({
-            // type: 'inspector-dialog',
             width: 250,
             title: 'Edit Member',
             closeButton: false,
@@ -334,18 +306,12 @@ var tree = function(joint, V, _) {
 
         dialog.on({
             'action:cancel': function() {
-                //addMember(elementView, inspector)
-                //inspector.remove();
-
                 dialog.close();
 
             },
             'action:apply': function() {
-                //inspector.updateCell();
                 option = $('#selection').val();
                 addMember(elementView, option);
-                //inspector.remove();
-
                 dialog.close();
             }
         });
@@ -374,7 +340,7 @@ var tree = function(joint, V, _) {
         }
     }
 
-    this.paper.on('element:delete', function(elementView, evt, x, y) {
+    paper.on('element:delete', function(elementView, evt, x, y) {
         evt.stopPropagation();
 
         let elementId = elementView.model.id;
@@ -396,81 +362,9 @@ var tree = function(joint, V, _) {
         treeLayout.layout();
     });
 
-    this.paper.on('element:edit', function(elementView, evt, x, y) {
+    paper.on('element:edit', function(elementView, evt, x, y) {
         evt.stopPropagation();
-        alert("edit")
-
-        // graph.resetCells(members.concat(connections));
-
-        // A member edit
-        /* var inspector = new joint.ui.Inspector({
-            cellView: elementView,
-            live: false,
-            inputs: {
-                'rank': {
-                    type: 'text',
-                    label: 'Rank',
-                    index: 1
-                },
-                'name': {
-                    type: 'text',
-                    label: 'Name',
-                    index: 2
-                },
-                'attrs/image/xlink:href': {
-                    type: 'select-box',
-                    target: '.joint-dialog .fg',
-                    width: 210,
-                    label: 'Sex',
-                    options: [
-                        { value: 'images/male.png', content: 'Male' },
-                        { value: 'images/female.png', content: 'Female' }
-                    ],
-                    index: 3
-                },
-                'attrs/.card/fill': {
-                    type: 'color-palette',
-                    target: '.joint-dialog .fg',
-                    label: 'Color',
-                    index: 4,
-                    options: [
-                        { content: '#31d0c6' },
-                        { content: '#7c68fc' },
-                        { content: '#fe854f' },
-                        { content: '#feb663' },
-                        { content: '#c6c7e2' }
-                    ]
-                }
-            }
-        });
-
-        var dialog = new joint.ui.Dialog({
-            type: 'inspector-dialog',
-            width: 250,
-            title: 'Edit Member',
-            closeButton: false,
-            content: inspector.render().el,
-            buttons: [{
-                content: 'Cancel',
-                action: 'cancel'
-            }, {
-                content: 'Apply',
-                action: 'apply'
-            }]
-        });
-
-        dialog.on({
-            'action:cancel': function() {
-                inspector.remove(); dialog.close();
-            },
-            'action:apply': function() {
-                inspector.updateCell();
-                inspector.remove();
-                dialog.close();
-            }
-        });
-        dialog.open();
-        */
+        // TODO jump another tap
     }, this);
 
     // Tree Layout Rank Selection
@@ -499,9 +393,6 @@ var tree = function(joint, V, _) {
             parent: { rx: 10, ry: 10 }
         }
     });
-
-    //App.graph = graph;
-    //App.paper = paper;
 
     App.guidToCell = {};
     let cells = graph.getCells();
