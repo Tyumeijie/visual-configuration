@@ -1,4 +1,4 @@
-#OBS Framework Visual Configuration Panel
+# OBS Framework Visual Configuration Panel
 
 This is an webapp project to work as an visual configuration panel for OBS framework which adopt:
 
