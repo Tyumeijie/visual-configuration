@@ -1,0 +1,8 @@
+
+#chart-direction {
+    position: absolute;
+    bottom: 60px;
+    right: 260px;
+    border-radius: 5px;
+    padding: 3px 1px !important;
+}

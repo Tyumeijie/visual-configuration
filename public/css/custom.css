@@ -1,0 +1,26 @@
+a {
+    color: #00B7FF;
+}
+
+.main {
+    margin-bottom: 200px;
+}
+
+.card {
+    border-radius: 2px;
+}
+
+.card-action {
+    align-content: center;
+}
+
+/*Keep the footer fixed at bottom*/
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}

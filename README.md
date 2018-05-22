@@ -1,13 +1,6 @@
-# Rappid Demo Application
+#OBS Framework Visual Configuration Panel
 
-This application showcases the Rappid plugins in action and shows how the plugins
-can be combined together. You can use this demo app as a reference for your own application
-development.
+This is an webapp project to work as an visual configuration panel for OBS framework which adopt:
 
-## Running the application
-
-Due to Same-Origin policy implemented in the majority of browsers to prevent content from being accessed if the file exists on another domain, it is recommended to access the application through a **Web server**. The application might work only partially when viewed from a filesytem location.
-
-A simple HTTP server (requires `Node.js` and `npm`) is part of this demo. To install and start the server, please run `npm install` followed by `npm start` from the `KitchenSink` directory.
-
-The application is also available online [here](http://jointjs.com/rappid).
+* [JointJS](https://www.jointjs.com) for rendering the diagrams.
+* [Express.js](https://expressjs.com) for hosting the web app.

@@ -6,6 +6,7 @@ router.get('/', function (req, res, next) {
     res.render('index', {
         title: 'OBFS Framework visual configuration panel',
         model_one_title: 'Telemetry Model',
+        model_one_url: '/telemetry',
         model_two_title: 'FSM Model',
     });
 });

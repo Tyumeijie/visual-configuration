@@ -7,14 +7,16 @@
     <!-- Import Google Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Import materialize css lib -->
-    <link rel="stylesheet" href="/stylesheets/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="/css/materialize/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
 </head>
 
 <body>
 <!-- header navbar -->
 <% include header.ejs %>
 
-<div class="container">
+<!--main-->
+<main class="container main">
     <div class="section">
         <div class="row">
             <div class="col s6">
@@ -25,7 +27,7 @@
                         <p>Some descriptions about the model one... TO BE ADDED</p>
                     </div>
                     <div class="card-action">
-                        <a href="#">Go to it</a>
+                        <a href=<%= model_one_url %>>Go to it</a>
                     </div>
                 </div>
             </div>
@@ -33,9 +35,9 @@
             <div class="col s6">
                 <div class="card blue-grey darken-1 hoverable" id="cardTwo">
                     <div class="card-content white-text">
-                        <span class=""><h3><%= model_one_title %></h3></span>
+                        <span class=""><h3><%= model_two_title %></h3></span>
                         <!-- TODO -->
-                        <p>Some descriptions about the model one... TO BE ADDED</p>
+                        <p>Some descriptions about the model two... TO BE ADDED</p>
                     </div>
                     <div class="card-action">
                         <a href="#">Go to it</a>
@@ -44,15 +46,15 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 
 
 <!-- footer -->
 <% include footer.ejs %>
 
-<script src="/javascripts/jquery-3.3.1.js"></script>
+<script src="/js/lib/jquery.js"></script>
 <!-- Import materialize js lib -->
-<script src="/javascripts/materialize.min.js"></script>
+<script src="/js/materialize/materialize.min.js"></script>
 <script>
     (function ($) {
         $(function () {

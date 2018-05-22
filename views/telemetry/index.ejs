@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="/css/lib/rappid.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/orgchart.css">
+    <link rel="stylesheet" type="text/css" href="/css/theme-picker.css">
+
+    <!-- theme-specific application CSS  -->
+    <link rel="stylesheet" type="text/css" href="/css/style.dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.material.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.modern.css">
+
+    <!-- Import Google Icon Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Import materialize css lib -->
+    <link rel="stylesheet" href="/css/materialize/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="/css/custom.css"/>
+
+</head>
+<body>
+
+<% include header.ejs %>
+
+<div id="app">
+    <div class="app-header">
+        <div class="app-title">
+            <h1><%= title %></h1>
+        </div>
+        <div class="toolbar-container"></div>
+    </div>
+    <div class="app-body">
+        <div class="stencil-container"></div>
+        <div class="paper-container"></div>
+        <div class="inspector-container"></div>
+        <div class="navigator-container"></div>
+    </div>
+    <div class="app-footer">
+        <div id="chart-direction"></div>
+    </div>
+</div>
+
+<script src="/js/materialize/jquery-3.3.1.js"></script>
+<!-- Import materialize js lib -->
+<script src="/js/materialize/materialize.min.js"></script>
+
+<!-- Rappid/JointJS dependencies: -->
+<script src="/js/lib/jquery.js"></script>
+<script src="/js/lib/lodash.js"></script>
+<script src="/js/lib/backbone.js"></script>
+<script src="/js/lib/graphlib.core.js"></script>
+<script src="/js/lib/dagre.core.js"></script>
+
+<script src="/js/lib/rappid.js"></script>
+
+<!--[if IE 9]>
+<script>
+    // `-ms-user-select: none` doesn't work in IE9
+    document.onselectstart = function () {
+        return false;
+    };
+</script>
+<![endif]-->
+
+<!-- Application files:  -->
+<script src="/js/config/halo.js"></script>
+<script src="/js/config/selection.js"></script>
+<script src="/js/config/inspector.js"></script>
+<script src="/js/config/stencil.js"></script>
+<script src="/js/config/toolbar.js"></script>
+<script src="/js/config/sample-graphs.js"></script>
+<script src="/js/views/main.js"></script>
+<script src="/js/views/orgchart.js"></script>
+
+<script src="/js/views/theme-picker.js"></script>
+<script src="/js/models/joint.shapes.app.js"></script>
+<script>
+    joint.setTheme('modern');
+    app = new App.MainView({el: '#app'});
+    themePicker = new App.ThemePicker({mainView: app});
+    themePicker.render().$el.appendTo(document.body);
+    window.addEventListener('load', function () {
+        //app.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
+
+        App.pattern = {};
+        App.pattern.tree = {factory: tree.bind(app, joint, V, _), hasCalled: false};
+
+    });
+
+</script>
+
+<!-- Local file warning: -->
+<div id="message-fs" style="display: none;">
+    <p>The application was open locally using the file protocol. It is recommended to access it trough a <b>Web
+            server</b>.</p>
+    <p>Please see <a href="README.md">instructions</a>.</p>
+</div>
+<script>
+    (function () {
+        var fs = (document.location.protocol === 'file:');
+        var ff = (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1);
+        if (fs && !ff) {
+            (new joint.ui.Dialog({
+                width: 300,
+                type: 'alert',
+                title: 'Local File',
+                content: $('#message-fs').show()
+            })).open();
+        }
+    })();
+</script>
+
+</body>
+</html>
