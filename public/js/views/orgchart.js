@@ -336,6 +336,7 @@ var tree = function (joint, V, _) {
         }
     }
 
+
     function addMember(elementView, option) {
 
         var newMember = memeberFactory[option]();
@@ -347,49 +348,54 @@ var tree = function (joint, V, _) {
         treeLayout.layout();
     }
 
+    var container = $(".options-container");
+    var cancelButton = document.getElementById("cancel-button");
+    var applyButton = document.getElementById("apply-button");
+    applyButton.allowedClick = undefined;
+
+    applyButton.addEventListener("click", function(evt){
+        var select = $(".options-container select");
+        select.remove();
+        container.attr("hidden", "true");
+
+        addMember(applyButton.elementView, select.val());
+        cancelButton.allowedClick = true;
+    });
+
+    cancelButton.addEventListener("click", function(evt){
+        var select = $(".options-container select");
+        select.remove();
+        container.attr("hidden", "true");
+
+        cancelButton.allowedClick = true;
+    });
+
+    function generateOptions(){
+       return `<select class="form-control">
+                   <option value="man">man</option>
+                   <option value="woman">woman</option>
+               </select>`;
+
+
+    }
     paper.on('element:add', function (elementView, evt) {
         evt.stopPropagation();
 
+        // when cancelButton.allowedClickAdd equals to 'undefined' or 'true', we should display options; otherwise
+        // we just simply return
+        if (cancelButton.allowedClick == false) return;
+        cancelButton.allowedClick = false; // store extented attribute 'allowedClickAdd' into cancelButton
+
         // TODO check the need to pop up a dialog
+        var htmlString =  generateOptions();
+        container.prepend(htmlString);
+        container.removeAttr("hidden");
 
-        var el = '<select id="selection">' +
-            '<option >man</option>' +
-            '<option >woman</option>' +
-            '</select>';
-
-        var dialog = new joint.ui.Dialog({
-            width: 250,
-            title: 'Edit Member',
-            closeButton: false,
-            content: el,
-            buttons: [{
-                content: 'Cancel',
-                action: 'cancel'
-            }, {
-                content: 'Apply',
-                action: 'apply'
-            }]
-        });
-
-        dialog.on({
-            'action:cancel': function () {
-                dialog.close();
-
-            },
-            'action:apply': function () {
-                option = $('#selection').val();
-                addMember(elementView, option);
-                dialog.close();
-            }
-        });
-
-        dialog.open();
-
-
+        // store the elementView into applyButton for latter use
+        applyButton.elementView = elementView;
     });
 
     function deleteElementAllChlidren(outLinkGUIDs) {
-
         for (linkId in outLinkGUIDs) {
             var outLink = App.guidToCell[linkId];
             var elementId = outLink.attributes.target.id;
@@ -409,6 +415,8 @@ var tree = function (joint, V, _) {
 
     paper.on('element:delete', function (elementView, evt, x, y) {
         evt.stopPropagation();
+
+        if (cancelButton.allowedClick == false) return;
 
         let elementId = elementView.model.id;
         if (graph._out[elementId] != undefined && Object.keys(graph._out[elementId]).length != 0) {
@@ -431,6 +439,8 @@ var tree = function (joint, V, _) {
 
     paper.on('element:edit', function (elementView, evt, x, y) {
         evt.stopPropagation();
+
+        if (cancelButton.allowedClick == false) return;
         // TODO jump another tap
     }, this);
 

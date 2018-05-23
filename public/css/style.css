@@ -197,3 +197,25 @@ body {
 .joint-dialog.joint-lightbox .fg {
     background-color: #F6F6F6;
 }
+
+.options-container {
+    position: fixed;
+    margin-left: 240px;
+    margin-top: 120px;
+    min-width: 240px;
+    z-index: 1!important;
+}
+
+.options-container select {
+    display: inline-block !important;
+    background-color: #26a69a;
+}
+
+.options-container button{
+    display: inline-block !important;
+    color: #000;
+}
+
+.options-container  button:nth-of-type(2) {
+   float: right;
+}

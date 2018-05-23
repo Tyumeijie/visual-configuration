@@ -19,7 +19,6 @@
     <!-- Import materialize css lib -->
     <link rel="stylesheet" href="/css/materialize/materialize.min.css" media="screen,projection"/>
     <link rel="stylesheet" href="/css/custom.css"/>
-
 </head>
 <body>
 
@@ -31,6 +30,10 @@
             <h1><%= title %></h1>
         </div>
         <div class="toolbar-container"></div>
+        <div class="options-container" hidden>
+            <button id="cancel-button" type="button" class="btn btn-outline-primary">Cancel</button>
+            <button id="apply-button" type="button" class="btn btn-outline-primary">Apply</button>
+        </div>
     </div>
     <div class="app-body">
         <div class="stencil-container"></div>
@@ -43,7 +46,6 @@
     </div>
 </div>
 
-<script src="/js/materialize/jquery-3.3.1.js"></script>
 <!-- Import materialize js lib -->
 <script src="/js/materialize/materialize.min.js"></script>
 
