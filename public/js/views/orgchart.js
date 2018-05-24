@@ -396,20 +396,23 @@ var tree = function (joint, V, _) {
     });
 
     function deleteElementAllChlidren(outLinkGUIDs) {
-        for (linkId in outLinkGUIDs) {
-            var outLink = App.guidToCell[linkId];
+        for (var outLinkId in outLinkGUIDs) {
+            var outLink = App.guidToCell[outLinkId];
             var elementId = outLink.attributes.target.id;
 
-            if (graph._out[elementId] != undefined && Object.keys(graph._out[elementId]).length != 0) {
-                deleteElementAllChlidren(graph._out[elementId]);
+            // If the element has child, then recursively call deleteElementAllChlidren
+            if (graph.out[elementId] != undefined && Object.keys(graph.out[elementId]).length != 0) {
+                deleteElementAllChlidren(graph.out[elementId]);
             }
 
-            // delete element and it's link
+            // delete element and it's out link
             var element = App.guidToCell[elementId];
             var elementView = paper.findViewByModel(element);
-            elementView.model.remove();
+
             delete App.guidToCell[elementId];
-            delete App.guidToCell[linkId];
+            delete App.guidToCell[outLinkId];
+
+            elementView.model.remove();
         }
     }
 
@@ -419,20 +422,25 @@ var tree = function (joint, V, _) {
         if (cancelButton.allowedClick == false) return;
 
         let elementId = elementView.model.id;
-        if (graph._out[elementId] != undefined && Object.keys(graph._out[elementId]).length != 0) {
+        if (graph.out[elementId] != undefined && Object.keys(graph.out[elementId]).length != 0) {
             let option = confirm("Are you sure to delete all it's children!");
 
             if (option) {
-                deleteElementAllChlidren(graph._out[elementId]);
+                deleteElementAllChlidren(graph.out[elementId]);
                 treeLayout.layout();
             }
 
             return;
         }
 
-        // A member removal
-        elementView.model.remove();
+        // Remove element without child, if the element has parent, in link should also be deleted
         delete App.guidToCell[elementId];
+        if (graph.in[elementId] != undefined) {
+            let inLinkId = Object.keys(graph.in[elementId])[0];
+            delete App.guidToCell[inLinkId];
+        }
+
+        elementView.model.remove();
 
         treeLayout.layout();
     });

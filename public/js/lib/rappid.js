@@ -2391,6 +2391,8 @@
         },
         _restructureOnReset: function (a) {
             a = a.models, this._out = {}, this._in = {}, this._nodes = {}, this._edges = {}, a.forEach(this._restructureOnAdd, this)
+            // export '_out', '_in' as 'out' and 'in' respectively, for we need to analyze the struct of a graph
+            this.out = this._out, this.in = this._in
         },
         _restructureOnChangeSource: function (a) {
             var b = a.previous("source");
