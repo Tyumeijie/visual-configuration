@@ -450,6 +450,9 @@ var tree = function (joint, V, _) {
 
         if (cancelButton.allowedClick == false) return;
         // TODO jump another tap
+        // Should check the type of the current element first, and maybe need to pass some states of the current tab
+        // to the server side for return related UI
+        window.open("http://127.0.0.1:3000");
     }, this);
 
     // Tree Layout Rank Selection
