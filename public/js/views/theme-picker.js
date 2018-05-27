@@ -1,4 +1,4 @@
-var App = window.App || {};
+/*var App = window.App || {};
 
 (function (_, joint) {
 
@@ -81,3 +81,4 @@ var App = window.App || {};
     });
 
 })(_, joint);
+*/

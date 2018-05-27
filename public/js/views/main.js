@@ -71,11 +71,9 @@ var Collection = window.Collection || {};
                 cursor: 'grab'
             });
 
-
             this.$('.paper-container').append(paperScroller.el);
             paperScroller.render().center();
         },
-
         // Create and populate stencil.
         initializeStencil: function () {
             var stencil = this.stencil = new joint.ui.Stencil({

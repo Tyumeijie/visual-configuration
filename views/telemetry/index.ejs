@@ -17,12 +17,27 @@
     <!-- Import Google Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Import materialize css lib -->
-    <link rel="stylesheet" href="/css/materialize/materialize.min.css" media="screen,projection"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-combined.min.css">
     <link rel="stylesheet" href="/css/custom.css"/>
+
+    <style type="text/css">
+        .nav-tabs > li .close {
+            margin: -2px 0 0 10px;
+            font-size: 18px;
+        }
+        .marginBottom {
+            margin-bottom :1px !important;
+        }
+        .nav-tabs>li>a {
+            padding-top: 1.5em;
+            padding-bottom: 1.5em;
+        }
+    </style>
 </head>
 <body>
 
-<% include header.ejs %>
+
 
 <div id="app">
     <div class="app-header">
@@ -41,13 +56,14 @@
         <div class="inspector-container"></div>
         <div class="navigator-container"></div>
     </div>
-    <div class="app-footer">
-        <div id="chart-direction"></div>
-    </div>
-</div>
 
-<!-- Import materialize js lib -->
-<script src="/js/materialize/materialize.min.js"></script>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs marginBottom" id="myTab">
+            <li class="active "><a href="#Main" id="main" >Main</a></li>
+        </ul>
+    </div>
+
+</div>
 
 <!-- Rappid/JointJS dependencies: -->
 <script src="/js/lib/jquery.js"></script>
@@ -55,6 +71,7 @@
 <script src="/js/lib/backbone.js"></script>
 <script src="/js/lib/graphlib.core.js"></script>
 <script src="/js/lib/dagre.core.js"></script>
+<script src="/js/lib/bootstrap.min.js"></script>
 
 <script src="/js/lib/rappid.js"></script>
 
@@ -82,18 +99,119 @@
 <script>
     joint.setTheme('modern');
     app = new App.MainView({el: '#app'});
-    themePicker = new App.ThemePicker({mainView: app});
-    themePicker.render().$el.appendTo(document.body);
+    //themePicker = new App.ThemePicker({mainView: app});
+    //themePicker.render().$el.appendTo(document.body);
     window.addEventListener('load', function () {
         //app.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
 
         App.pattern = {};
         App.pattern.tree = {factory: tree.bind(app, joint, V, _), hasCalled: false};
 
+        App.tabs = {};
     });
+</script>
+<script>
+
+    var currentTab = $("#main");
+    var composeCount = 0;
+
+    // initilize tabs
+    $(function () {
+
+        // when ever any tab is clicked this method will be call
+        $("#myTab").on("click", "a", function (e) {
+            e.preventDefault();
+
+            currentTab = $(this);
+            $(this).tab('show');
+
+            var graphJSON = App.tabs[getCurrentTab()];
+            if (graphJSON != undefined) {
+                app.graph.fromJSON(JSON.parse(graphJSON));
+            }
+        });
+
+        registerCloseEvent();
+    });
+
+    // this method will demonstrate how to add tab dynamically
+    function registerComposeButtonEvent() {
+
+            var tabId = "compose" + composeCount; //this is id on tab content div where the
+            composeCount = composeCount + 1; //increment compose count
+
+            $('.nav-tabs').append('<li><a href="#' + tabId + '"' + 'id="' + tabId + '"><button class="close closeTab" type="button" >×</button>Compose</a></li>');
+
+            var saveJSON = JSON.stringify(app.graph);
+            var curTab = getCurrentTab();
+            App.tabs[curTab] = saveJSON;
+
+            currentTab = $("#"+ tabId);
+
+            $(this).tab('show');
+            showTab(tabId);
+            registerCloseEvent();
+    }
+
+    // this method will register event on close icon on the tab..
+    function registerCloseEvent() {
+
+        $(".closeTab").click(function () {
+            //there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
+            var tabContentId = $(this).parent().attr("href");
+            $(this).parent().parent().remove(); //remove li of tab
+            $('#myTab a:last').tab('show'); // Select first tab
+            $(tabContentId).remove(); //remove respective tab content
+
+        });
+    }
+
+    // shows the tab with passed content div id..paramter tabid indicates the div where the content resides
+    function showTab(tabId) {
+        $('#myTab a[href="#' + tabId + '"]').tab('show');
+    }
+    // return current active tab
+    function getCurrentTab() {
+        return currentTab.attr("id");
+    }
+
+    // this will return element from current tab
+    // example : if there are two tabs having  textarea with same id or same class name then when $("#someId") whill return both the text area from both tabs
+    // to take care this situation we need get the element from current tab.
+    function getElement(selector) {
+        var tabContentId = $currentTab.attr("href");
+        return $("" + tabContentId).find("" + selector);
+
+    }
+
+
+    function removeCurrentTab() {
+        var tabContentId = $currentTab.attr("href");
+        $currentTab.parent().remove(); //remove li of tab
+        $('#myTab a:last').tab('show'); // Select first tab
+        $(tabContentId).remove(); //remove respective tab content
+    }
 
 </script>
 
+<script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+        window.parent.parent.postMessage(["resultsFrame", {
+            height: document.body.getBoundingClientRect().height,
+            slug: "g2vCv"
+        }], "*")
+    }
+</script>
+
+<script>
+    document.getElementsByClassName("app-title")[0].addEventListener("click", function(){
+        var stencil = $(".stencil-container");
+        var zIndex = stencil.css("zIndex");
+        stencil.css("z-index", -zIndex);
+
+    });
+</script>
 <!-- Local file warning: -->
 <div id="message-fs" style="display: none;">
     <p>The application was open locally using the file protocol. It is recommended to access it trough a <b>Web

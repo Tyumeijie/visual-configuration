@@ -449,10 +449,70 @@ var tree = function (joint, V, _) {
         evt.stopPropagation();
 
         if (cancelButton.allowedClick == false) return;
+
         // TODO jump another tap
         // Should check the type of the current element first, and maybe need to pass some states of the current tab
         // to the server side for return related UI
-        window.open("http://127.0.0.1:3000");
+        //window.open("http://127.0.0.1:3000");
+        /*
+               var oldGraph = this.graph;
+               var graph = new joint.dia.Graph;
+               graph.on('add', function (cell, collection, opt) {
+                   Collection.collection = collection;
+               }, this);
+
+                       var paper = this.paper = new joint.dia.Paper({
+                           width: 1000,
+                           height: 1000,
+                           gridSize: 10,
+                           drawGrid: true,
+                           model: graph,
+                           defaultLink: new joint.shapes.app.Link
+                       });
+
+                       paper.on('blank:mousewheel', _.partial(this.onMousewheel, null), this);
+                       paper.on('cell:mousewheel', this.onMousewheel, this);
+                       var members = [
+                           member('Founder & Chairman', 'Pierre Omidyar', 'assets/male.png', '#31d0c6'),
+                           member2('President & CEO', 'Margaret C. Whitman', 'assets/female.png', '#31d0c6'),
+                           member('President, PayPal', 'Scott Thompson', 'assets/male.png', '#7c68fc'),
+                           member2('President, Ebay Global Marketplaces', 'Devin Wenig', 'assets/male.png', '#7c68fc')
+                       ];
+
+                       var connections = [
+                           link(members[0], members[1]),
+                           link(members[1], members[2]),
+                           link(members[1], members[3])
+                       ];
+
+
+                           var paperScroller = this.paperScroller = new joint.ui.PaperScroller({
+                               paper: paper,
+                               autoResizePaper: true,
+                               cursor: 'grab'
+                           });
+
+                      // this.paperScroller.paper = paper;
+                       this.$('.paper-container').empty();
+                       //this.$('.paper-container').append(paperScroller.el);
+                       this.$('.paper-container').append(paperScroller.el);
+
+                       //paperScroller.render().center();
+
+                      graph.resetCells(members.concat(connections));
+                      treeLayout.graph = graph;
+                      tree.paper = paper;
+                      treeLayout.layout();
+
+                      */
+        registerComposeButtonEvent();
+
+        this.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
+
+        var saveJSON = JSON.stringify(app.graph);
+        var curTab = getCurrentTab();
+        App.tabs[curTab] = saveJSON;
+
     }, this);
 
     // Tree Layout Rank Selection
@@ -474,13 +534,14 @@ var tree = function (joint, V, _) {
 
     directionPicker.render().$el.appendTo('#chart-direction');
 
-    new joint.ui.TreeLayoutView({
+     /*
+    var treeView = new joint.ui.TreeLayoutView({
         paper: this.paper,
         model: treeLayout,
         previewAttrs: {
             parent: {rx: 10, ry: 10}
         }
-    });
+    });*/
 
     App.guidToCell = {};
     let cells = graph.getCells();
