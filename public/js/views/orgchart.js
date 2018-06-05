@@ -372,8 +372,10 @@ var tree = function (joint, V, _) {
 
     function generateOptions(){
        return `<select class="form-control">
-                   <option value="man">man</option>
-                   <option value="woman">woman</option>
+                   <option value="man">Element1</option>
+                   <option value="man">Element2</option>
+                   <option value="woman">Element3</option>
+                   <option value="woman">Element4</option>
                </select>`;
 
 

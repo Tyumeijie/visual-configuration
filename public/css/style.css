@@ -176,7 +176,6 @@ body {
     height: 100%;
     left: 240px;
     right: 0;
-    box-sizing: border-box;
 }
 
 .toolbar-container .joint-toolbar {
@@ -197,13 +196,15 @@ body {
     display: none;
 }
 
-/*Tab*/
+/* Container of the bottom tabs */
 .container-fluid {
     position: absolute;
     background-color: white;
     bottom: 0;
     height: 7%;
-    width: 100%;
+    width:94%;
+    padding-right: 3% !important;
+    padding-left: 3% !important;
 }
 
 .joint-dialog.joint-lightbox .fg {
@@ -229,5 +230,9 @@ body {
 }
 
 .options-container  button:nth-of-type(2) {
-   float: right;
+   /*float: right;*/
+}
+
+.options-container select {
+   margin-bottom: 0px;
 }

@@ -21,18 +21,59 @@
     <link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-combined.min.css">
     <link rel="stylesheet" href="/css/custom.css"/>
 
+
     <style type="text/css">
         .nav-tabs > li .close {
             margin: -2px 0 0 10px;
-            font-size: 18px;
+            font-size: 20px;
         }
-        .marginBottom {
-            margin-bottom :1px !important;
+        .nav-tabs > li{
+            width: 10%; /* Display max 10 tabs meanwhile */
+            text-align: center;
+
         }
-        .nav-tabs>li>a {
-            padding-top: 1.5em;
-            padding-bottom: 1.5em;
+        .nav-tabs > li > a {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
+
+        ul.nav.nav-tabs {
+            /* Override the style from bootstrap*/
+            margin-bottom: 1em !important;
+            margin-top: 1em !important;
+        }
+
+        /* Next & previous buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            width: auto;
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .prev {
+            left: 1%;
+            top: 40%;
+        }
+        /* Position the "next button" to the right */
+        .next {
+            right: 1%;
+            top: 40%;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
     </style>
 </head>
 <body>
@@ -58,9 +99,12 @@
     </div>
 
     <div class="container-fluid">
-        <ul class="nav nav-tabs marginBottom" id="myTab">
-            <li class="active "><a href="#Main" id="main" >Main</a></li>
+        <a class="prev">❮</a>
+        <a class="next">❯</a>
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#Main" id="main" >Main</a></li>
         </ul>
+
     </div>
 
 </div>
@@ -112,17 +156,73 @@
 </script>
 <script>
 
-    var currentTab = $("#main");
-    var composeCount = 0;
+    function addTabToActiveGroup(tab, dir) {
+        if (dir === "left") {
+            tabControl.activeTabs.unshift(tab);
+        } else {
+            tabControl.activeTabs.push(tab);
+        }
+    }
+
+    function addTabToLeftHiddenTabs(tab) {
+        tabControl.leftHiddenTabs.push(tab);
+    }
+
+    function hideTab(tab) {
+        // parent
+        tab.css("display", "none");
+    }
+
+    function activeTab(tab) {
+        tab.css("display", tabDisplayType);
+    }
+
+    function deleteActiveTab(tabId) {
+        var activeTabLen = tabControl.activeTabs.length;
+
+        for (var i=0; i<activeTabLen; i++) {
+             console.log(tabControl.activeTabs[i].attr("id"));
+            if (tabControl.activeTabs[i].attr("id") === tabId) {
+                tabControl.activeTabs.splice(i, 1);
+                i--; //
+                break;
+            }
+        }
+
+        var tab;
+
+        if (tabControl.rightHiddenTabs.length != 0) {
+            tab = tabControl.rightHiddenTabs.pop();
+            addTabToActiveGroup(tab, "right");
+            activeTab(tab);
+            curTab = tabControl.activeTabs[i];
+        } else if (tabControl.leftHiddenTabs.length != 0) {
+            tab = tabControl.leftHiddenTabs.pop();
+            addTabToActiveGroup(tab, "left");
+            activeTab(tab);
+            curTab = tabControl.activeTabs[i];
+        } else {
+            if (i == activeTabLen - 1) {
+                curTab = tabControl.activeTabs[i-1];
+            } else {
+                curTab = tabControl.activeTabs[i];
+            }
+        }
+
+        console.log(tabId, i);
+        //showTab(curTab.attr("id"));
+        curTab.tab("show");
+    }
 
     // initilize tabs
     $(function () {
 
         // when ever any tab is clicked this method will be call
+        // li
         $("#myTab").on("click", "a", function (e) {
             e.preventDefault();
 
-            currentTab = $(this);
+            curTab = $(this);
             $(this).tab('show');
 
             var graphJSON = App.tabs[getCurrentTab()];
@@ -131,38 +231,59 @@
             }
         });
 
-        registerCloseEvent();
+        //registerCloseEvent();
     });
 
     // this method will demonstrate how to add tab dynamically
     function registerComposeButtonEvent() {
 
-            var tabId = "compose" + composeCount; //this is id on tab content div where the
-            composeCount = composeCount + 1; //increment compose count
-
-            $('.nav-tabs').append('<li><a href="#' + tabId + '"' + 'id="' + tabId + '"><button class="close closeTab" type="button" >×</button>Compose</a></li>');
-
             var saveJSON = JSON.stringify(app.graph);
-            var curTab = getCurrentTab();
-            App.tabs[curTab] = saveJSON;
+            var curTabId = getCurrentTab();
+            // TODO rename tabPane
+            App.tabs[curTabId] = saveJSON;
 
-            currentTab = $("#"+ tabId);
+            var tabId = "tab" + tabsCount; //this is id on tab content div where the
+
+            newTab(tabId);
+            curTab = $("#"+ tabId);
+            addTabToActiveGroup(curTab, "right");
 
             $(this).tab('show');
-            showTab(tabId);
+            //showTab(tabId);
             registerCloseEvent();
+    }
+
+    function newTab(tabId) {
+         // TODO magic number 9
+        if (tabControl.activeTabs.length > 9) {
+            var tab = tabControl.activeTabs.shift();
+            addTabToLeftHiddenTabs(tab);
+            hideTab(tab);
+        }
+
+        var tab = `<li><a href="#${tabId}" id="${tabId}"><button id=${tabId}_btn class="close closeTab" type="button" >&times;</button>${tabId}</a></li>`;
+        $('.nav-tabs').append(tab);
+
+        tabsCount += 1;
     }
 
     // this method will register event on close icon on the tab..
     function registerCloseEvent() {
-
-        $(".closeTab").click(function () {
-            //there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
+        // 多个注册，那么会触发哪一个
+        $(".closeTab").click(function (event) {
+            console.log("target", event.target);
+            // there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
             var tabContentId = $(this).parent().attr("href");
-            $(this).parent().parent().remove(); //remove li of tab
-            $('#myTab a:last').tab('show'); // Select first tab
-            $(tabContentId).remove(); //remove respective tab content
+            $(this).parent().parent().remove(); // remove li of tab
+            // $('#myTab a:last').tab('show'); // Select first tab
+            $(tabContentId).remove(); // remove respective tab content
 
+            console.log("before delete", getCurrentTab());
+            // 不是当前的也可以删除， 禁止删除
+            //deleteActiveTab(getCurrentTab());
+            deleteActiveTab($(this).parent().attr("id"));
+            // 非常重要
+            event.stopImmediatePropagation();
         });
     }
 
@@ -170,13 +291,9 @@
     function showTab(tabId) {
         $('#myTab a[href="#' + tabId + '"]').tab('show');
     }
-    // return current active tab
-    function getCurrentTab() {
-        return currentTab.attr("id");
-    }
 
     // this will return element from current tab
-    // example : if there are two tabs having  textarea with same id or same class name then when $("#someId") whill return both the text area from both tabs
+    // example : if there are two tabs having  textarea with same id or same class name then when $("#someId") will return both the text area from both tabs
     // to take care this situation we need get the element from current tab.
     function getElement(selector) {
         var tabContentId = $currentTab.attr("href");
@@ -184,13 +301,27 @@
 
     }
 
-
     function removeCurrentTab() {
         var tabContentId = $currentTab.attr("href");
         $currentTab.parent().remove(); //remove li of tab
         $('#myTab a:last').tab('show'); // Select first tab
         $(tabContentId).remove(); //remove respective tab content
     }
+
+    function getCurrentTab() {
+        return curTab.attr("id");
+    }
+
+    var curTab = $("#main");
+    var tabDisplayType = curTab.css("display");
+    var tabsCount = 0;
+    var tabControl = {
+        activeTabs: [],
+        leftHiddenTabs: [],
+        rightHiddenTabs: []
+    };
+
+    addTabToActiveGroup(curTab, "right");
 
 </script>
 
