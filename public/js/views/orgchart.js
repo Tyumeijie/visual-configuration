@@ -512,8 +512,8 @@ var tree = function (joint, V, _) {
         this.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
 
         var saveJSON = JSON.stringify(app.graph);
-        var curTab = getCurrentTab();
-        App.tabs[curTab] = saveJSON;
+        var curTabId = getIdOfCurrentTab();
+        App.tabs[curTabId] = saveJSON;
 
     }, this);
 
