@@ -286,6 +286,20 @@
             leftMoveActiveWindow();
             updatePrevAndNextStatus();
         })
+
+
+        $("#editTabs").on("click", ".closeTab", function (evt) {
+            // remove li of tab
+            $(this).parent().parent().remove();
+            // Upadate tabControl
+            removeTab($(this).parent());
+            updatePrevAndNextStatus();
+
+            /* Need to stop event propogation; Otherwise the callback of it's anchor parent element
+             * will be called, causing incorrect display of tab content: still the content of the
+             * current tab but not the 'next' tab; most important it is more effective*/
+            evt.stopImmediatePropagation();
+        });
     });
 
     // this method will demonstrate how to add tab dynamically
@@ -299,8 +313,6 @@
             newTab(tabId);
 
             curTab.tab('show');
-
-            registerCloseEvent(curTab);
     }
 
     function newTab(tabId) {
@@ -318,18 +330,6 @@
         updatePrevAndNextStatus();
 
         tabsCount += 1;
-    }
-
-    function registerCloseEvent(tab) {
-        var selector = "#" + tab.attr("id") + " > button";
-
-        $(selector).click(function (event) {
-            // remove li of tab
-            $(this).parent().parent().remove();
-            // Upadate tabControl
-            removeTab($(this).parent());
-            updatePrevAndNextStatus();
-        });
     }
 
     function getIdOfCurrentTab() {
