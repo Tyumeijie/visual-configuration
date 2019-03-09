@@ -93,7 +93,6 @@ body {
     font-size: 18px;
     line-height: 60px;
     text-align: left;
-    text-transform: uppercase;
     margin: 0;
     padding: 0 0 0 30px;
 }
@@ -188,7 +187,7 @@ body {
 }
 
 .toolbar-container button:not(:empty) {
-    padding: 0 4px;
+    padding: 0 10px;
 }
 
 .toolbar-container button.joint-widget[data-type="zoomIn"],
@@ -213,8 +212,8 @@ body {
 
 .options-container {
     position: fixed;
-    margin-left: 240px;
-    margin-top: 120px;
+    margin-left: 40%;
+    margin-top: 200px;
     min-width: 240px;
     z-index: 1!important;
 }

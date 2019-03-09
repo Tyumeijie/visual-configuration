@@ -13821,7 +13821,8 @@
             options: {
                 width: 200,
                 height: 800,
-                label: "Stencil",
+                // label: "Stencil",
+                label: " ",
                 groups: null,
                 groupsToggleButtons: !1,
                 dropAnimation: !1,
@@ -13867,11 +13868,13 @@
                 }).addClass("search"))
             },
             renderToggleAll: function () {
-                return [$("<div/>").addClass("groups-toggle").append($("<label/>").addClass("group-label").html(this.options.label)).append($("<button/>", {
+                return ""
+                /*
+                [$("<div/>").addClass("groups-toggle").append($("<label/>").addClass("group-label").html(this.options.label)).append($("<button/>", {
                     text: "+"
                 }).addClass("btn btn-expand")).append($("<button/>", {
                     text: "-"
-                }).addClass("btn btn-collapse"))]
+                }).addClass("btn btn-collapse"))]*/
             },
             renderElementsContainer: function () {
                 return $("<div/>").addClass("elements")

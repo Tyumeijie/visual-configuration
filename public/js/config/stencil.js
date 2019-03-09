@@ -14,7 +14,7 @@ App.config = App.config || {};
        pn: { index: 3, label: 'Petri nets' },
        erd: { index: 4, label: 'Entity-relationship' },
        */
-        uml: {index: 5, label: 'UML'},
+        uml: {index: 5, label: 'Established Models'},
         /*org: { index: 6, label: 'ORG' }*/
 
     };

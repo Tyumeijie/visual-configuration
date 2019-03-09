@@ -136,7 +136,7 @@ var tree = function (joint, V, _) {
         '<text class="rank"/><text class="name"/>',
         '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
         '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
-        '<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
+        //'<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
         '</g>'
     ].join('');
 
@@ -148,7 +148,7 @@ var tree = function (joint, V, _) {
         '<text class="rank"/><text class="name"/>',
         '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
         '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
-        '<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
+        //'<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
         '</g>'
     ].join('');
 
@@ -370,6 +370,7 @@ var tree = function (joint, V, _) {
         cancelButton.allowedClick = true;
     });
 
+    // generate candidates
     function generateOptions(){
        return `<select class="form-control">
                    <option value="man">Element1</option>

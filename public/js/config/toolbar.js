@@ -46,7 +46,7 @@ App.config = App.config || {};
             {
                 type: 'button',
                 name: 'clear',
-                group: 'clear',
+                group: 'Clear paper',
                 attrs: {
                     button: {
                         id: 'btn-clear',
@@ -60,11 +60,11 @@ App.config = App.config || {};
                 type: 'button',
                 name: 'svg',
                 group: 'export',
-                text: 'Export SVG',
+                text: 'Generate xml file',
                 attrs: {
                     button: {
                         id: 'btn-svg',
-                        'data-tooltip': 'Open as SVG in a pop-up',
+                        'data-tooltip': 'Generate configuration file',
                         'data-tooltip-position': 'top',
                         'data-tooltip-position-selector': '.toolbar-container'
                     }
@@ -72,18 +72,33 @@ App.config = App.config || {};
             },
             {
                 type: 'button',
-                name: 'png',
+                name: 'svg',
                 group: 'export',
-                text: 'Export PNG',
+                text: 'New model',
                 attrs: {
                     button: {
-                        id: 'btn-png',
-                        'data-tooltip': 'Open as PNG in a pop-up',
+                        id: 'btn-svg',
+                        'data-tooltip': 'new model',
                         'data-tooltip-position': 'top',
                         'data-tooltip-position-selector': '.toolbar-container'
                     }
                 }
             },
+            {
+                type: 'button',
+                name: 'svg',
+                group: 'export',
+                text: 'Save model',
+                attrs: {
+                    button: {
+                        id: 'btn-svg',
+                        'data-tooltip': 'save model',
+                        'data-tooltip-position': 'top',
+                        'data-tooltip-position-selector': '.toolbar-container'
+                    }
+                }
+            },
+            /*
             {
                 type: 'button',
                 name: 'print',
@@ -244,7 +259,7 @@ App.config = App.config || {};
                         'data-tooltip-position-selector': '.toolbar-container'
                     }
                 }
-            }
+            }*/
         ]
     };
 })();

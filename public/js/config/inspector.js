@@ -2791,6 +2791,7 @@ App.config = App.config || {};
                 }
             }
         },
+        // 每个种类都会有相应的inspector
         'uml.State': {
             inputs: {
                 name: {
