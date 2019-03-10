@@ -144,21 +144,22 @@ var tree = function (joint, V, _) {
         '<text class="rank"/><text class="name"/>',
         '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
         '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
-        //'<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
+        '<g class="btn error"><circle class="error"/><text class="error">8</text></g>',
         '</g>'
     ].join('');
 
-    joint.shapes.custom.Member_2.prototype.markup = [
-        '<g class="rotatable">',
-        '<g class="scalable">',
-        '<rect class="card"/>',
-        '</g>',
-        '<text class="rank"/><text class="name"/>',
-        '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
-        '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
-        //'<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
-        '</g>'
-    ].join('');
+    // joint.shapes.custom.Member_2.prototype.markup = [
+    //     '<g class="rotatable">',
+    //     '<g class="scalable">',
+    //     '<rect class="card"/>',
+    //     '</g>',
+    //     '<text class="rank"/><text class="name"/>',
+    //     '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
+    //     '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
+    //     //'<g class="btn edit"><rect class="edit"/><text class="edit">EDIT</text></g>',
+    //     '<g class="btn error"><circle class="error"/><text class="error">8</text></g>',
+    //     '</g>'
+    // ].join('');
 
     // A helper to create a member model
     var member = function (rank, name, image, background, textColor) {
@@ -169,7 +170,8 @@ var tree = function (joint, V, _) {
             // 设置卡片的位置
             size: {width: 180, height: 80},
             attrs: {
-                '.card': {fill: background, 'stroke-width': 0},
+                // '.card': {fill: background, 'stroke-width': 0},
+                '.card': {fill: '#adbbb9', 'stroke-width': 2},
                 //image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
                 '.rank': {
                     fill: textColor,
@@ -186,8 +188,9 @@ var tree = function (joint, V, _) {
                 // 调整 + - 的位置
                 '.btn.add': {'ref-dx': -165, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
                 '.btn.del': {'ref-dx': -165, 'ref-y': 45, 'ref': '.card', event: 'element:delete'},
-                '.btn.edit': {'ref-dx': -140, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
-                '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1},
+                '.btn.error': {'ref-dx': -2, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
+                '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1.5},
+                '.btn.error>circle': {r: 14, fill: '#ce9825', stroke: '#333', 'stroke-width': 1},
                 '.btn>rect': {height: 20, width: 45, rx: 2, ry: 2, fill: 'transparent', 'stroke-width': 1},
                 '.btn.add>text': {
                     fill: textColor,
@@ -207,13 +210,13 @@ var tree = function (joint, V, _) {
                     y: 7,
                     'font-family': 'Times New Roman'
                 },
-                '.btn.edit>text': {
+                '.btn.error>text': {
                     fill: textColor,
                     'font-size': 15,
                     'font-weight': 500,
                     stroke: "#000",
-                    x: 5,
-                    y: 15,
+                    x: -3,
+                    y: 5,
                     'font-family': 'Sans Serif'
                 }
             }
@@ -233,74 +236,75 @@ var tree = function (joint, V, _) {
     };
 
     // A helper to create a member model
-    var member2 = function (rank, name, image, background, textColor) {
+    // var member2 = function (rank, name, image, background, textColor) {
 
-        textColor = textColor || "#000";
+    //     textColor = textColor || "#000";
 
-        var element = new joint.shapes.custom.Member_2({
-            size: {width: 180, height: 80},
-            attrs: {
-                '.card': {fill: background, 'stroke-width': 0},
-                //image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
-                '.rank': {
-                    fill: textColor,
-                    text: '',
-                    'font-size': 13,
-                    'text-decoration': 'none',
-                    'ref-x': 0.95,
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    'word-spacing': '-1px',
-                    'letter-spacing': 0
-                },
-                '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.75, 'font-family': 'Arial'},
-                '.btn.add': {'ref-dx': -165, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
-                '.btn.del': {'ref-dx': -165, 'ref-y': 45, 'ref': '.card', event: 'element:delete'},
-                '.btn.edit': {'ref-dx': -140, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
-                '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1},
-                '.btn>rect': {height: 20, width: 45, rx: 2, ry: 2, fill: 'transparent', 'stroke-width': 1},
-                '.btn.add>text': {
-                    fill: textColor,
-                    'font-size': 23,
-                    'font-weight': 800,
-                    stroke: "#000",
-                    x: -6.5,
-                    y: 7,
-                    'font-family': 'Times New Roman'
-                },
-                '.btn.del>text': {
-                    fill: textColor,
-                    'font-size': 28,
-                    'font-weight': 500,
-                    stroke: "#000",
-                    x: -4.5,
-                    y: 7,
-                    'font-family': 'Times New Roman'
-                },
-                '.btn.edit>text': {
-                    fill: textColor,
-                    'font-size': 15,
-                    'font-weight': 500,
-                    stroke: "#000",
-                    x: 5,
-                    y: 15,
-                    'font-family': 'Sans Serif'
-                }
-            }
-        }).on({
-            'change:name': function (cell, name) {
-                cell.attr('.name/text', joint.util.breakText(name, {width: 160, height: 45}, cell.attr('.name')));
-            },
-            'change:rank': function (cell, rank) {
-                cell.attr('.rank/text', joint.util.breakText(rank, {width: 165, height: 45}, cell.attr('.rank')));
-            }
-        }).set({
-            name: name,
-            //rank: rank
-        });
+    //     var element = new joint.shapes.custom.Member_2({
+    //         size: {width: 180, height: 80},
+    //         attrs: {
+    //             // '.card': {fill: background, 'stroke-width': 0},
+    //             '.card': {fill: '#adbbb9', 'stroke-width': 2},
+    //             //image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
+    //             '.rank': {
+    //                 fill: textColor,
+    //                 text: '',
+    //                 'font-size': 13,
+    //                 'text-decoration': 'none',
+    //                 'ref-x': 0.95,
+    //                 'ref-y': 0.5,
+    //                 'y-alignment': 'middle',
+    //                 'word-spacing': '-1px',
+    //                 'letter-spacing': 0
+    //             },
+    //             '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.75, 'font-family': 'Arial'},
+    //             '.btn.add': {'ref-dx': -165, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
+    //             '.btn.del': {'ref-dx': -165, 'ref-y': 45, 'ref': '.card', event: 'element:delete'},
+    //             '.btn.edit': {'ref-dx': -140, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
+    //             '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1},
+    //             '.btn>rect': {height: 20, width: 45, rx: 2, ry: 2, fill: 'transparent', 'stroke-width': 1},
+    //             '.btn.add>text': {
+    //                 fill: textColor,
+    //                 'font-size': 23,
+    //                 'font-weight': 800,
+    //                 stroke: "#000",
+    //                 x: -6.5,
+    //                 y: 7,
+    //                 'font-family': 'Times New Roman'
+    //             },
+    //             '.btn.del>text': {
+    //                 fill: textColor,
+    //                 'font-size': 28,
+    //                 'font-weight': 500,
+    //                 stroke: "#000",
+    //                 x: -4.5,
+    //                 y: 7,
+    //                 'font-family': 'Times New Roman'
+    //             },
+    //             '.btn.edit>text': {
+    //                 fill: textColor,
+    //                 'font-size': 15,
+    //                 'font-weight': 500,
+    //                 stroke: "#000",
+    //                 x: 5,
+    //                 y: 15,
+    //                 'font-family': 'Sans Serif'
+    //             }
+    //         }
+    //     }).on({
+    //         'change:name': function (cell, name) {
+    //             cell.attr('.name/text', joint.util.breakText(name, {width: 160, height: 45}, cell.attr('.name')));
+    //         },
+    //         'change:rank': function (cell, rank) {
+    //             cell.attr('.rank/text', joint.util.breakText(rank, {width: 165, height: 45}, cell.attr('.rank')));
+    //         }
+    //     }).set({
+    //         name: name,
+    //         //rank: rank
+    //     });
 
-        return element;
-    };
+    //     return element;
+    // };
 
     // A helper to create an arrow connection
     function link(source, target) {
@@ -309,12 +313,13 @@ var tree = function (joint, V, _) {
             target: {id: target.id}
         });
     }
-
+    
+    // 一个模型的数据
     var members = [
         member('Founder & Chairman', 'Pierre Omidyar', 'assets/male.png', '#31d0c6'),
-        member2('President & CEO', 'Margaret C. Whitman', 'assets/female.png', '#31d0c6'),
+        member('President & CEO', 'Margaret C. Whitman', 'assets/female.png', '#31d0c6'),
         member('President, PayPal', 'Scott Thompson', 'assets/male.png', '#7c68fc'),
-        member2('President, Ebay Global Marketplaces', 'Devin Wenig', 'assets/male.png', '#7c68fc'),
+        member('President, Ebay Global Marketplaces', 'Devin Wenig', 'assets/male.png', '#7c68fc'),
         member('Senior Vice President Human Resources', 'Jeffrey S. Skoll', 'assets/male.png', '#fe854f'),
         member('Senior Vice President Controller', 'Steven P. Westly', 'assets/male.png', '#feb663')
     ];
@@ -329,7 +334,7 @@ var tree = function (joint, V, _) {
 
     var treeLayout = new joint.layout.TreeLayout({
         graph: graph,
-        direction: 'R'
+        direction: 'B'
     });
 
     graph.resetCells(members.concat(connections));
@@ -337,12 +342,10 @@ var tree = function (joint, V, _) {
     this.paperScroller.zoom(-0.2);
     this.paperScroller.centerContent();
 
+    
     memeberFactory = {
-        woman: function () {
+        member: function () {
             return member('Employee', 'New Woman Employee', 'assets/female.png', '#31d0c6');
-        },
-        man: function () {
-            return member2('Employee', 'New Man Employee', 'assets/male.png', '#7c68fc');
         }
     }
 
@@ -383,10 +386,10 @@ var tree = function (joint, V, _) {
     // generate candidates
     function generateOptions(){
        return `<select class="form-control">
-                   <option value="man">Element1</option>
-                   <option value="man">Element2</option>
-                   <option value="woman">Element3</option>
-                   <option value="woman">Element4</option>
+                   <option value="member">Element1</option>
+                   <option value="member">Element2</option>
+                   <option value="member">Element3</option>
+                   <option value="member">Element4</option>
                </select>`;
 
 
