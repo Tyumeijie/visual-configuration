@@ -144,7 +144,7 @@ var tree = function (joint, V, _) {
         '<text class="rank"/><text class="name"/>',
         '<g class="btn add"><circle class="add"/><text class="add">+</text></g>',
         '<g class="btn del"><circle class="del"/><text class="del">-</text></g>',
-        '<g class="btn error"><circle class="error"/><text class="error">8</text></g>',
+        '<g class="btn error"><circle class="error"/><text class="error-number"></text></g>',
         '</g>'
     ].join('');
 
@@ -461,11 +461,22 @@ var tree = function (joint, V, _) {
         treeLayout.layout();
     });
 
+    
+    let previousClickedButton = null;
     paper.on('element:edit', function (elementView, evt, x, y) {
         evt.stopPropagation();
 
         if (cancelButton.allowedClick == false) return;
+       
+        var htmlString =  generateErrorTips();
+        var container = $(".tips-container");
+        container.empty();
+        container.prepend(htmlString);
+        window.container = container;
+        container[0].style.top = (evt.clientY - 15) + "px";
+        container[0].style.left = (evt.clientX + 15) + "px";
 
+    
         // TODO jump another tap
         // Should check the type of the current element first, and maybe need to pass some states of the current tab
         // to the server side for return related UI
@@ -521,13 +532,14 @@ var tree = function (joint, V, _) {
                       treeLayout.layout();
 
                       */
-        registerComposeButtonEvent();
+        // registerComposeButtonEvent();
 
-        this.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
+        // this.graph.fromJSON(JSON.parse(App.config.sampleGraphs.emergencyProcedure));
 
-        var saveJSON = JSON.stringify(app.graph);
-        var curTabId = getIdOfCurrentTab();
-        App.tabs[curTabId] = saveJSON;
+        // var saveJSON = JSON.stringify(app.graph);
+        // var curTabId = getIdOfCurrentTab();
+        // App.tabs[curTabId] = saveJSON;
+        
 
     }, this);
 
@@ -563,6 +575,31 @@ var tree = function (joint, V, _) {
     let cells = graph.getCells();
     for (let i = 0; i < cells.length; i++) {
         App.guidToCell[cells[i].id] = cells[i];
+    };
+
+
+    (function hideErrorTips() {
+        let bnts = Array.from(document.querySelectorAll('.paper-container  g.btn.error'));
+        bnts.map(ele => ele.style.display="none");
+    })();
+
+    function generateErrorTips(tips){
+        return `<select class="form-control">
+                    <option value="member">Element1</option>
+                    <option value="member">Element2</option>
+                    <option value="member">Element3</option>
+                    <option value="member">Element4</option>
+                </select><button class="auto-fix">AutoFix</button>`;
+     }
+
+    function showErrorTips(modelId, tips) {
+        let model = document.getElementById(modelId);
+        let btn = model.querySelector('.btn.error');
+        btn.style.display = "";
+        let numberArea = btn.childNodes[1];
+        numberArea.textContent = tips.length;
+        
+        // construct tips
+        
     }
-    ;
 }

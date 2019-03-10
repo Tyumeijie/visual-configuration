@@ -248,3 +248,31 @@ body {
 .btn {
     text-shadow:none!important;
 }
+
+.joint-halo {
+    display: none;
+}
+.joint-free-transform {
+    display: none;
+}
+
+.tips-container {
+    position: fixed;
+    /*larger than paper*/
+    z-index: 2;
+}
+.tips-container select {
+    display: inline-block !important;
+    background-color: #ffffff;
+    margin-bottom: 0px;
+    width: auto;
+}
+
+.tips-container button{
+    display: inline-block !important;
+    color: #000;
+    padding: 4px 6px;
+    margin-left: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
