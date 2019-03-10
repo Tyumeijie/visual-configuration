@@ -2,12 +2,14 @@ var App = window.App || {};
 
 joint.dia.Element.define("custom.Member", {
     size: {
-        width: 180,
+        // width: 180,
+        width: 100,
         height: 70
     },
     attrs: {
         rect: {
-            width: 170,
+            //width: 170,
+            width: 90,
             height: 60
         },
         ".card": {
@@ -15,16 +17,16 @@ joint.dia.Element.define("custom.Member", {
             stroke: "#000000",
             "stroke-width": 2,
             "pointer-events": "visiblePainted",
-            rx: 10,
-            ry: 10
+            rx: 5,
+            ry: 5
         },
-        image: {
-            width: 48,
-            height: 48,
-            ref: ".card",
-            "ref-x": 10,
-            "ref-y": 5
-        },
+        // image: {
+        //     width: 48,
+        //     height: 48,
+        //     ref: ".card",
+        //     "ref-x": 10,
+        //     "ref-y": 5
+        // },
         ".rank": {
             "text-decoration": "underline",
             ref: ".card",
@@ -50,12 +52,14 @@ joint.dia.Element.define("custom.Member", {
 
 joint.dia.Element.define("custom.Member_2", {
     size: {
-        width: 180,
+        //width: 180,
+        width: 100,
         height: 70
     },
     attrs: {
         rect: {
-            width: 170,
+            //width: 170,
+            width: 90,
             height: 60
         },
         ".card": {
@@ -63,16 +67,16 @@ joint.dia.Element.define("custom.Member_2", {
             stroke: "#000000",
             "stroke-width": 2,
             "pointer-events": "visiblePainted",
-            rx: 10,
-            ry: 10
+            rx: 5,
+            ry: 5
         },
-        image: {
-            width: 48,
-            height: 48,
-            ref: ".card",
-            "ref-x": 10,
-            "ref-y": 5
-        },
+        // image: {
+        //     width: 48,
+        //     height: 48,
+        //     ref: ".card",
+        //     "ref-x": 10,
+        //     "ref-y": 5
+        // },
         ".rank": {
             "text-decoration": "underline",
             ref: ".card",
@@ -127,6 +131,10 @@ var tree = function (joint, V, _) {
 
     joint.setTheme('modern');
 
+    /********************************************************
+     * Custom-defined element
+     *******************************************************/
+    
     // Extend the Orgchart member markup with control buttons.
     joint.shapes.custom.Member.prototype.markup = [
         '<g class="rotatable">',
@@ -158,10 +166,11 @@ var tree = function (joint, V, _) {
         textColor = textColor || "#000";
 
         var element = new joint.shapes.custom.Member({
-            size: {width: 260, height: 90},
+            // 设置卡片的位置
+            size: {width: 180, height: 80},
             attrs: {
                 '.card': {fill: background, 'stroke-width': 0},
-                image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
+                //image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
                 '.rank': {
                     fill: textColor,
                     text: '',
@@ -173,9 +182,10 @@ var tree = function (joint, V, _) {
                     'word-spacing': '-1px',
                     'letter-spacing': 0
                 },
-                '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.7, 'font-family': 'Arial'},
-                '.btn.add': {'ref-dx': -15, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
-                '.btn.del': {'ref-dx': -45, 'ref-y': 15, 'ref': '.card', event: 'element:delete'},
+                '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.75, 'font-family': 'Arial'},
+                // 调整 + - 的位置
+                '.btn.add': {'ref-dx': -165, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
+                '.btn.del': {'ref-dx': -165, 'ref-y': 45, 'ref': '.card', event: 'element:delete'},
                 '.btn.edit': {'ref-dx': -140, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
                 '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1},
                 '.btn>rect': {height: 20, width: 45, rx: 2, ry: 2, fill: 'transparent', 'stroke-width': 1},
@@ -185,7 +195,7 @@ var tree = function (joint, V, _) {
                     'font-weight': 800,
                     stroke: "#000",
                     x: -6.5,
-                    y: 8,
+                    y: 7,
                     'font-family': 'Times New Roman'
                 },
                 '.btn.del>text': {
@@ -194,7 +204,7 @@ var tree = function (joint, V, _) {
                     'font-weight': 500,
                     stroke: "#000",
                     x: -4.5,
-                    y: 6,
+                    y: 7,
                     'font-family': 'Times New Roman'
                 },
                 '.btn.edit>text': {
@@ -216,7 +226,7 @@ var tree = function (joint, V, _) {
             }
         }).set({
             name: name,
-            rank: rank
+            //rank: rank
         });
 
         return element;
@@ -228,10 +238,10 @@ var tree = function (joint, V, _) {
         textColor = textColor || "#000";
 
         var element = new joint.shapes.custom.Member_2({
-            size: {width: 260, height: 90},
+            size: {width: 180, height: 80},
             attrs: {
                 '.card': {fill: background, 'stroke-width': 0},
-                image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
+                //image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
                 '.rank': {
                     fill: textColor,
                     text: '',
@@ -243,9 +253,9 @@ var tree = function (joint, V, _) {
                     'word-spacing': '-1px',
                     'letter-spacing': 0
                 },
-                '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.7, 'font-family': 'Arial'},
-                '.btn.add': {'ref-dx': -15, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
-                '.btn.del': {'ref-dx': -45, 'ref-y': 15, 'ref': '.card', event: 'element:delete'},
+                '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.75, 'font-family': 'Arial'},
+                '.btn.add': {'ref-dx': -165, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
+                '.btn.del': {'ref-dx': -165, 'ref-y': 45, 'ref': '.card', event: 'element:delete'},
                 '.btn.edit': {'ref-dx': -140, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
                 '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1},
                 '.btn>rect': {height: 20, width: 45, rx: 2, ry: 2, fill: 'transparent', 'stroke-width': 1},
@@ -255,7 +265,7 @@ var tree = function (joint, V, _) {
                     'font-weight': 800,
                     stroke: "#000",
                     x: -6.5,
-                    y: 8,
+                    y: 7,
                     'font-family': 'Times New Roman'
                 },
                 '.btn.del>text': {
@@ -264,7 +274,7 @@ var tree = function (joint, V, _) {
                     'font-weight': 500,
                     stroke: "#000",
                     x: -4.5,
-                    y: 6,
+                    y: 7,
                     'font-family': 'Times New Roman'
                 },
                 '.btn.edit>text': {
@@ -286,7 +296,7 @@ var tree = function (joint, V, _) {
             }
         }).set({
             name: name,
-            rank: rank
+            //rank: rank
         });
 
         return element;
