@@ -162,32 +162,33 @@ var tree = function (joint, V, _) {
     // ].join('');
 
     // A helper to create a member model
-    var member = function (rank, name, image, background, textColor) {
+    var member = function (rank, name, textColor) {
 
         textColor = textColor || "#000";
 
         var element = new joint.shapes.custom.Member({
             // 设置卡片的位置
-            size: {width: 180, height: 80},
+            size: {width: 195, height: 80},
             attrs: {
                 // '.card': {fill: background, 'stroke-width': 0},
                 '.card': {fill: '#adbbb9', 'stroke-width': 2},
                 //image: {'xlink:href': image, 'ref-y': 10, opacity: 0.7},
-                '.rank': {
-                    fill: textColor,
-                    text: '',
-                    'font-size': 13,
-                    'text-decoration': 'none',
-                    'ref-x': 0.95,
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    'word-spacing': '-1px',
-                    'letter-spacing': 0
-                },
-                '.name': {fill: textColor, text: '', 'ref-x': 0.95, 'ref-y': 0.75, 'font-family': 'Arial'},
+                // '.rank': {
+                //     fill: textColor,
+                //     text: '',
+                //     'font-size': 13,
+                //     'text-decoration': 'none',
+                //     'ref-x': 0.95,
+                //     'ref-y': 0.5,
+                //     'y-alignment': 'middle',
+                //     'word-spacing': '-1px',
+                //     'letter-spacing': 0
+                // },
+                '.name': {fill: textColor, text: '', 'ref-x': 0.98, 'ref-y': 0.65, 'font-family': 'Arial', 'font-size': 14, 'text-align': 'left'},
+                '.name1': {fill: textColor, text: '', 'ref-x': 0.98, 'ref-y': 0.65, 'font-family': 'Arial', 'font-size': 14, 'text-align': 'left'},
                 // 调整 + - 的位置
                 '.btn.add': {'ref-dx': -165, 'ref-y': 15, 'ref': '.card', event: 'element:add'},
-                '.btn.del': {'ref-dx': -165, 'ref-y': 45, 'ref': '.card', event: 'element:delete'},
+                '.btn.del': {'ref-dx': -135, 'ref-y': 15, 'ref': '.card', event: 'element:delete'},
                 '.btn.error': {'ref-dx': -2, 'ref-y': 5, 'ref': '.card', event: 'element:edit'},
                 '.btn>circle': {r: 10, fill: 'transparent', stroke: '#333', 'stroke-width': 1.5},
                 '.btn.error>circle': {r: 14, fill: '#ce9825', stroke: '#333', 'stroke-width': 1},
@@ -222,11 +223,11 @@ var tree = function (joint, V, _) {
             }
         }).on({
             'change:name': function (cell, name) {
-                cell.attr('.name/text', joint.util.breakText(name, {width: 160, height: 45}, cell.attr('.name')));
+                cell.attr('.name/text', joint.util.breakText(name, {width: 190, height: 45}, cell.attr('.name')));
             },
-            'change:rank': function (cell, rank) {
-                cell.attr('.rank/text', joint.util.breakText(rank, {width: 165, height: 45}, cell.attr('.rank')));
-            }
+            // 'change:rank': function (cell, rank) {
+            //     cell.attr('.rank/text', joint.util.breakText(rank, {width: 165, height: 45}, cell.attr('.rank')));
+            // }
         }).set({
             name: name,
             //rank: rank
@@ -316,20 +317,28 @@ var tree = function (joint, V, _) {
     
     // 一个模型的数据
     var members = [
-        member('Founder & Chairman', 'Pierre Omidyar', 'assets/male.png', '#31d0c6'),
-        member('President & CEO', 'Margaret C. Whitman', 'assets/female.png', '#31d0c6'),
-        member('President, PayPal', 'Scott Thompson', 'assets/male.png', '#7c68fc'),
-        member('President, Ebay Global Marketplaces', 'Devin Wenig', 'assets/male.png', '#7c68fc'),
-        member('Senior Vice President Human Resources', 'Jeffrey S. Skoll', 'assets/male.png', '#fe854f'),
-        member('Senior Vice President Controller', 'Steven P. Westly', 'assets/male.png', '#feb663')
+        member('', 'TelemetryManagement'),       //0
+        member('', 'TelemetryManager'),          //1
+        member('', 'TelemetryStream'),           //2
+        member('', 'BasicPUSTmStream'),          //3
+        member('', 'PUSTelemetryPackets'),       //4
+        member('', 'PUSTelemetryModeManager'),   //5
+        member('', 'PUSTelemetryPacket'),        //6
+        member('', 'PUSTelemetryPacket'),        //7
+        member('', 'PUSTelemetryPacket'),        //8
+        member('', 'PUSTmLogger'),               //9
     ];
-
+   
     var connections = [
         link(members[0], members[1]),
+        link(members[0], members[4]),
         link(members[1], members[2]),
-        link(members[1], members[3]),
-        link(members[1], members[4]),
-        link(members[1], members[5])
+        link(members[2], members[3]),
+        link(members[2], members[9]),
+        link(members[4], members[5]),
+        link(members[4], members[6]),
+        link(members[4], members[7]),
+        link(members[4], members[8]),
     ];
 
     var treeLayout = new joint.layout.TreeLayout({
@@ -345,7 +354,7 @@ var tree = function (joint, V, _) {
     
     memeberFactory = {
         member: function () {
-            return member('Employee', 'New Woman Employee', 'assets/female.png', '#31d0c6');
+            return member('Employee', 'PUSTelemetryPacket', 'assets/female.png', '#31d0c6');
         }
     }
 
@@ -361,6 +370,34 @@ var tree = function (joint, V, _) {
         treeLayout.layout();
     }
 
+    function hideErrorTips() {
+        let bnts = Array.from(document.querySelectorAll('.paper-container  g.btn.error'));
+        bnts.map(bnt => {
+            let errorNumber = bnt.childNodes[1];
+            if (Number(errorNumber.textContent) > 0) return;
+            bnt.style.display = 'none';
+        });
+    }
+    hideErrorTips();
+
+
+    function generateErrorTips(tips){
+        return `<select class="form-control">
+                    <option value="member">BasicPUSTmStream, PUSTmLogger can't coexist </option>
+                    <option value="member">Element2</option>
+                </select><button class="auto-fix">AutoFix</button>`;
+     }
+
+    function showErrorTips(modelId, tips) {
+        let model = document.getElementById(modelId);
+        let btn = model.querySelector('.btn.error');
+        btn.style.display = "";
+        let numberArea = btn.childNodes[1];
+        numberArea.textContent = tips.length;
+        
+        // construct tips
+    }
+
     var container = $(".options-container");
     var cancelButton = document.getElementById("cancel-button");
     var applyButton = document.getElementById("apply-button");
@@ -373,6 +410,8 @@ var tree = function (joint, V, _) {
 
         addMember(applyButton.elementView, select.val());
         cancelButton.allowedClick = true;
+
+        hideErrorTips();
     });
 
     cancelButton.addEventListener("click", function(evt){
@@ -386,10 +425,10 @@ var tree = function (joint, V, _) {
     // generate candidates
     function generateOptions(){
        return `<select class="form-control">
-                   <option value="member">Element1</option>
-                   <option value="member">Element2</option>
-                   <option value="member">Element3</option>
-                   <option value="member">Element4</option>
+                   <option value="member">PUSTelemetryPacket</option>
+                   <option value="member">PUSTelemetryPacket</option>
+                   <option value="member">PUSTelemetryPacket</option>
+                   <option value="member">PUSTelemetryPacket</option>
                </select>`;
 
 
@@ -406,7 +445,7 @@ var tree = function (joint, V, _) {
         var htmlString =  generateOptions();
         container.prepend(htmlString);
         container.removeAttr("hidden");
-
+        
         // store the elementView into applyButton for latter use
         applyButton.elementView = elementView;
     });
@@ -473,8 +512,8 @@ var tree = function (joint, V, _) {
         container.empty();
         container.prepend(htmlString);
         window.container = container;
-        container[0].style.top = (evt.clientY - 15) + "px";
-        container[0].style.left = (evt.clientX + 15) + "px";
+        container[0].style.top = (evt.clientY - 20) + "px";
+        container[0].style.left = (evt.clientX + 20) + "px";
 
     
         // TODO jump another tap
@@ -576,30 +615,4 @@ var tree = function (joint, V, _) {
     for (let i = 0; i < cells.length; i++) {
         App.guidToCell[cells[i].id] = cells[i];
     };
-
-
-    (function hideErrorTips() {
-        let bnts = Array.from(document.querySelectorAll('.paper-container  g.btn.error'));
-        bnts.map(ele => ele.style.display="none");
-    })();
-
-    function generateErrorTips(tips){
-        return `<select class="form-control">
-                    <option value="member">Element1</option>
-                    <option value="member">Element2</option>
-                    <option value="member">Element3</option>
-                    <option value="member">Element4</option>
-                </select><button class="auto-fix">AutoFix</button>`;
-     }
-
-    function showErrorTips(modelId, tips) {
-        let model = document.getElementById(modelId);
-        let btn = model.querySelector('.btn.error');
-        btn.style.display = "";
-        let numberArea = btn.childNodes[1];
-        numberArea.textContent = tips.length;
-        
-        // construct tips
-        
-    }
 }

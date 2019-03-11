@@ -264,6 +264,7 @@ body {
 .tips-container select {
     display: inline-block !important;
     background-color: #ffffff;
+    background-color: #e7e4d4;
     margin-bottom: 0px;
     width: auto;
 }
@@ -275,4 +276,9 @@ body {
     margin-left: 4px;
     background-color: #fff;
     border: 1px solid #ccc;
+
+}
+
+.joint-inspector.joint-theme-modern .group>.group-label {
+   text-transform: none!important;    
 }

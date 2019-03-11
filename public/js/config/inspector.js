@@ -2895,41 +2895,40 @@ App.config = App.config || {};
                 }
             }
         },
+        // 
+ 
         'custom.Member': {
             inputs: {
                 attrs: {
-                    '.rank': {
+                    '.rank1': {
                         text: {
                             type: 'content-editable',
-                            label: 'Text',
-                            group: 'rank',
+                            label: 'name',
+                            group: 'rank1',
                             index: 1
                         },
                         'font-size': {
                             type: 'range',
                             min: 5,
                             max: 80,
-                            unit: 'px',
-                            label: 'Font size',
-                            group: 'rank',
-                            when: {ne: {'attrs/.rank/text': ''}},
+                            unit: '',
+                            label: 'value',
+                            group: 'rank1',
+                            // when: {ne: {'attrs/.rank/text': ''}},
                             index: 2
                         },
                     },
-                    '.name': {
+                    '.name1': {
                         text: {
                             type: 'content-editable',
-                            label: 'Text',
-                            group: 'name',
+                            label: 'name',
+                            group: 'name1',
                             index: 1
                         },
                         'font-size': {
-                            type: 'range',
-                            min: 5,
-                            max: 80,
-                            unit: 'px',
-                            label: 'Font size',
-                            group: 'name',
+                            type: 'content-editable',
+                            label: 'value',
+                            group: 'name1',
                             when: {ne: {'attrs/.name/text': ''}},
                             index: 2
                         },
@@ -2941,16 +2940,18 @@ App.config = App.config || {};
                     label: 'Presentation',
                     index: 4
                 },
-                rank: {
-                    label: 'Rank',
+                rank1: {
+                    label: 'Capacity',
                     index: 2
                 },
-                name: {
-                    label: 'Name',
+                name1: {
+                    label: 'StartAddress',
                     index: 3
                 },
             }
         },
+
+
         'custom.Member_2': {
             inputs: {
                 attrs: {

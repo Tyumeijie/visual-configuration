@@ -14071,7 +14071,7 @@
             onDropEnd: function (a) {
                 this._clone === a && (this.clearClone(), this.$el.append(this._paperDrag.$el), this.$el.removeClass("dragging"), this._paperDrag.$el.removeClass("dragging"));
 
-                if (a.attributes.type == 'uml.Class' && this.isDropValid) {
+                if (a.attributes.type == 'uml.State' && this.isDropValid) {
                     App.pattern.tree.factory();
                     App.pattern.tree.hasCalled = true;
                 }

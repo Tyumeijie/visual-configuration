@@ -14,12 +14,56 @@ App.config = App.config || {};
        pn: { index: 3, label: 'Petri nets' },
        erd: { index: 4, label: 'Entity-relationship' },
        */
-        uml: {index: 5, label: 'Established Models'},
+        uml: {index: 5, label: 'Model Templates'},
         /*org: { index: 6, label: 'ORG' }*/
 
     };
 
     App.config.stencil.shapes = {};
+
+    function generateModel(name, description) {
+        return {
+            type: 'uml.State',
+            name: name,
+            events: [description],
+            size: {
+                width: 150,
+                height: 100
+            },
+            attrs: {
+                '.': {
+                    'data-tooltip': 'State',
+                    'data-tooltip-position': 'left',
+                    'data-tooltip-position-selector': '.joint-stencil'
+                },
+                '.uml-state-body': {
+                    fill: '##e7e4d4',
+                    stroke: '#f6f6f6',
+                    'stroke-width': 1,
+                    rx: 8,
+                    ry: 8,
+                    'stroke-dasharray': '0'
+                },
+                '.uml-state-separator': {
+                    stroke: '#f6f6f6',
+                    'stroke-width': 1,
+                    'stroke-dasharray': '0'
+                },
+                '.uml-state-name': {
+                    fill: '#000000',
+                    'font-size': 11,
+                    'font-family': 'Roboto Condensed',
+                    'font-weight': 'bold'
+                },
+                '.uml-state-events': {
+                    fill: '#000000',
+                    'font-size': 11,
+                    'font-family': 'Roboto Condensed',
+                    'font-weight': 'Normal'
+                }
+            }
+        }
+    }
     /*
     App.config.stencil.shapes.basic = [
         {
@@ -562,245 +606,209 @@ App.config = App.config || {};
 */
     App.config.stencil.shapes.uml = [
 
-        {
-            type: 'uml.Class',
-            name: 'Class',
-            attributes: ['+attr1'],
-            methods: ['-setAttr1()'],
-            size: {
-                width: 150,
-                height: 100
-            },
-            attrs: {
-                '.': {
-                    'data-tooltip': 'Class',
-                    'data-tooltip-position': 'left',
-                    'data-tooltip-position-selector': '.joint-stencil'
-                },
-                '.uml-class-name-rect': {
-                    top: 2,
-                    fill: '#61549C',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-attrs-rect': {
-                    top: 2,
-                    fill: '#61549C',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-methods-rect': {
-                    top: 2,
-                    fill: '#61549C',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-name-text': {
-                    ref: '.uml-class-name-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                },
-                '.uml-class-attrs-text': {
-                    ref: '.uml-class-attrs-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                },
-                '.uml-class-methods-text': {
-                    ref: '.uml-class-methods-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                }
-            }
-        },
-        {
-            type: 'uml.Interface',
-            name: 'Interface',
-            attributes: ['+attr1'],
-            methods: ['-setAttr1()'],
-            size: {
-                width: 150,
-                height: 100
-            },
-            attrs: {
-                '.': {
-                    'data-tooltip': 'Interface',
-                    'data-tooltip-position': 'left',
-                    'data-tooltip-position-selector': '.joint-stencil'
-                },
-                '.uml-class-name-rect': {
-                    fill: '#fe854f',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-attrs-rect': {
-                    fill: '#fe854f',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-methods-rect': {
-                    fill: '#fe854f',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-name-text': {
-                    ref: '.uml-class-name-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                },
-                '.uml-class-attrs-text': {
-                    ref: '.uml-class-attrs-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-size': 11
-                },
-                '.uml-class-methods-text': {
-                    ref: '.uml-class-methods-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                }
-            }
-        },
-        {
-            type: 'uml.Abstract',
-            name: 'Abstract',
-            attributes: ['+attr1', '+attr2'],
-            methods: ['-setAttr1()'],
-            size: {
-                width: 150,
-                height: 100
-            },
-            attrs: {
-                '.': {
-                    'data-tooltip': 'Abstract',
-                    'data-tooltip-position': 'left',
-                    'data-tooltip-position-selector': '.joint-stencil'
-                },
-                '.uml-class-name-rect': {
-                    fill: '#6a6c8a',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-attrs-rect': {
-                    fill: '#6a6c8a',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-methods-rect': {
-                    fill: '#6a6c8a',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8
-                },
-                '.uml-class-name-text': {
-                    ref: '.uml-class-name-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                },
-                '.uml-class-attrs-text': {
-                    ref: '.uml-class-attrs-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                },
-                '.uml-class-methods-text': {
-                    ref: '.uml-class-methods-rect',
-                    'ref-y': 0.5,
-                    'y-alignment': 'middle',
-                    fill: '#f6f6f6',
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal',
-                    'font-size': 11
-                }
-            }
-        },
+        // {
+        //     type: 'uml.Class',
+        //     name: 'Class',
+        //     attributes: ['+attr1'],
+        //     methods: ['-setAttr1()'],
+        //     size: {
+        //         width: 150,
+        //         height: 100
+        //     },
+        //     attrs: {
+        //         '.': {
+        //             'data-tooltip': 'Class',
+        //             'data-tooltip-position': 'left',
+        //             'data-tooltip-position-selector': '.joint-stencil'
+        //         },
+        //         '.uml-class-name-rect': {
+        //             top: 2,
+        //             fill: '#61549C',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-attrs-rect': {
+        //             top: 2,
+        //             fill: '#61549C',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-methods-rect': {
+        //             top: 2,
+        //             fill: '#61549C',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-name-text': {
+        //             ref: '.uml-class-name-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         },
+        //         '.uml-class-attrs-text': {
+        //             ref: '.uml-class-attrs-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         },
+        //         '.uml-class-methods-text': {
+        //             ref: '.uml-class-methods-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         }
+        //     }
+        // },
+        // {
+        //     type: 'uml.Interface',
+        //     name: 'Interface',
+        //     attributes: ['+attr1'],
+        //     methods: ['-setAttr1()'],
+        //     size: {
+        //         width: 150,
+        //         height: 100
+        //     },
+        //     attrs: {
+        //         '.': {
+        //             'data-tooltip': 'Interface',
+        //             'data-tooltip-position': 'left',
+        //             'data-tooltip-position-selector': '.joint-stencil'
+        //         },
+        //         '.uml-class-name-rect': {
+        //             fill: '#fe854f',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-attrs-rect': {
+        //             fill: '#fe854f',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-methods-rect': {
+        //             fill: '#fe854f',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-name-text': {
+        //             ref: '.uml-class-name-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         },
+        //         '.uml-class-attrs-text': {
+        //             ref: '.uml-class-attrs-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-size': 11
+        //         },
+        //         '.uml-class-methods-text': {
+        //             ref: '.uml-class-methods-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         }
+        //     }
+        // },
+        // {
+        //     type: 'uml.Abstract',
+        //     name: 'Abstract',
+        //     attributes: ['+attr1', '+attr2'],
+        //     methods: ['-setAttr1()'],
+        //     size: {
+        //         width: 150,
+        //         height: 100
+        //     },
+        //     attrs: {
+        //         '.': {
+        //             'data-tooltip': 'Abstract',
+        //             'data-tooltip-position': 'left',
+        //             'data-tooltip-position-selector': '.joint-stencil'
+        //         },
+        //         '.uml-class-name-rect': {
+        //             fill: '#6a6c8a',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-attrs-rect': {
+        //             fill: '#6a6c8a',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-methods-rect': {
+        //             fill: '#6a6c8a',
+        //             stroke: '#f6f6f6',
+        //             'stroke-width': 1,
+        //             rx: 8,
+        //             ry: 8
+        //         },
+        //         '.uml-class-name-text': {
+        //             ref: '.uml-class-name-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         },
+        //         '.uml-class-attrs-text': {
+        //             ref: '.uml-class-attrs-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         },
+        //         '.uml-class-methods-text': {
+        //             ref: '.uml-class-methods-rect',
+        //             'ref-y': 0.5,
+        //             'y-alignment': 'middle',
+        //             fill: '#f6f6f6',
+        //             'font-family': 'Roboto Condensed',
+        //             'font-weight': 'Normal',
+        //             'font-size': 11
+        //         }
+        //     }
+        // },
 
-        {
-            type: 'uml.State',
-            name: 'State',
-            events: ['entry/', 'create()'],
-            size: {
-                width: 150,
-                height: 100
-            },
-            attrs: {
-                '.': {
-                    'data-tooltip': 'State',
-                    'data-tooltip-position': 'left',
-                    'data-tooltip-position-selector': '.joint-stencil'
-                },
-                '.uml-state-body': {
-                    fill: '#feb663',
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    rx: 8,
-                    ry: 8,
-                    'stroke-dasharray': '0'
-                },
-                '.uml-state-separator': {
-                    stroke: '#f6f6f6',
-                    'stroke-width': 1,
-                    'stroke-dasharray': '0'
-                },
-                '.uml-state-name': {
-                    fill: '#f6f6f6',
-                    'font-size': 11,
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal'
-                },
-                '.uml-state-events': {
-                    fill: '#f6f6f6',
-                    'font-size': 11,
-                    'font-family': 'Roboto Condensed',
-                    'font-weight': 'Normal'
-                }
-            }
-        }
+        generateModel('Model #1', 'Template one'),
+        generateModel('Model #2', 'Template two'),
+        generateModel('Model #3', 'Template three'),
+        generateModel('Model #4', 'Template four'),
+        generateModel('Model #5', 'Template five'),
     ];
     /*
         App.config.stencil.shapes.org = [
