@@ -60,11 +60,11 @@ App.config = App.config || {};
                 type: 'button',
                 name: 'svg',
                 group: 'export',
-                text: 'Generate xml file',
+                text: 'Open Model',
                 attrs: {
                     button: {
                         id: 'btn-svg',
-                        'data-tooltip': 'Generate configuration file',
+                        'data-tooltip': 'Open',
                         'data-tooltip-position': 'top',
                         'data-tooltip-position-selector': '.toolbar-container'
                     }
@@ -74,7 +74,7 @@ App.config = App.config || {};
                 type: 'button',
                 name: 'svg',
                 group: 'export',
-                text: 'New model',
+                text: 'New Model',
                 attrs: {
                     button: {
                         id: 'btn-svg',
@@ -88,11 +88,25 @@ App.config = App.config || {};
                 type: 'button',
                 name: 'svg',
                 group: 'export',
-                text: 'Save model',
+                text: 'Save Model',
                 attrs: {
                     button: {
                         id: 'btn-svg',
-                        'data-tooltip': 'save model',
+                        'data-tooltip': 'Save',
+                        'data-tooltip-position': 'top',
+                        'data-tooltip-position-selector': '.toolbar-container'
+                    }
+                }
+            },
+            {
+                type: 'button',
+                name: 'svg',
+                group: 'export',
+                text: 'Add To Templates',
+                attrs: {
+                    button: {
+                        id: 'btn-svg',
+                        'data-tooltip': 'Save',
                         'data-tooltip-position': 'top',
                         'data-tooltip-position-selector': '.toolbar-container'
                     }
